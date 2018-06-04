@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 import { CoreModule } from '@app/core';
 import { StoreModule } from '@ngrx/store';
-import { reducer } from '@app/reducers';
+import { reducers, metaReducers } from '@app/reducers';
 
 // Libraries
 import {
@@ -38,7 +38,7 @@ export function getAuthServiceConfigs() {
     AppRoutingModule,
     CoreModule,
     SocialLoginModule,
-    StoreModule.forRoot(reducer),
+    StoreModule.forRoot(reducers, {metaReducers}),
   ],
   providers: [
     {

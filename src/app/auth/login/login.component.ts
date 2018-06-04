@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { select } from '@angular-redux/store';
+import { UserModel } from '../models/user.model';
+import { UserLoginAction } from '@app/actions';
+import { Store } from '@ngrx/store';
+import { IAppState, getLoggedInUser } from '@app/reducers';
+import { Subscription } from 'rxjs/Subscription';
 
 import {
   AuthService,
@@ -17,28 +22,40 @@ import { AppAuthService } from '@app/core';
 })
 export class LoginComponent implements OnInit {
 
-  @select(state => state.user.loggedInUser) loggedInUser;
+  user: Observable<UserModel>;
+  private subscription: Subscription = new Subscription();
 
   constructor(private socialAuthService: AuthService,
-  private appAuth: AppAuthService) { }
+    private store: Store<IAppState>) {
+      this.user = this.store.select(getLoggedInUser);
+      this.subscription.add(this.user.subscribe(state => {
+        console.log('updated: ' + state.firstName);
+        console.log('updated: ' + this.user['firstName']);
+      }));
+    }
 
   ngOnInit() {
   }
 
   public socialSignIn(socialPlatform: string) {
-    this.appAuth.login();
-    let socialPlatformProvider;
-    if (socialPlatform === 'facebook' ) {
-      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
-    } else if (socialPlatform === 'google') {
-      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
-    }
+    // this.appAuth.login();
+    const user = new UserModel();
+    user.firstName = 'test';
+    user.lastName = 'aaa';
+    user.token = '3432dsfasdf';
+    this.store.dispatch(new UserLoginAction(user));
+    // let socialPlatformProvider;
+    // if (socialPlatform === 'facebook' ) {
+    //   socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+    // } else if (socialPlatform === 'google') {
+    //   socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+    // }
 
-    this.socialAuthService.signIn(socialPlatformProvider).then(
-      (userData) => {
-        console.log(socialPlatform + ' sign in data : ' , userData);
-      }
-    );
+    // this.socialAuthService.signIn(socialPlatformProvider).then(
+    //   (userData) => {
+    //     console.log(socialPlatform + ' sign in data : ' , userData);
+    //   }
+    // );
   }
 
 }

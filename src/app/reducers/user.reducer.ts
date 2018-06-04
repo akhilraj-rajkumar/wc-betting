@@ -1,3 +1,4 @@
+import { createSelector } from 'reselect';
 import { Action } from '@ngrx/store';
 import { UserModel } from '@app/auth';
 import * as user from '@app/actions';
@@ -9,9 +10,9 @@ export interface IUserState {
 const defaultState: IUserState = {loggedInUser: new UserModel()};
 
 export function userReducer(state: IUserState = defaultState, action: user.Actions): IUserState {
-    switch(action.type) {
+    switch (action.type) {
         case user.USER_LOGGED_IN: {
-            return Object.assign(defaultState, state, { loggedInUser: state.loggedInUser});
+            return { loggedInUser: action.payload};
         }
         case user.USER_LOGGED_OUT: {
             return defaultState;
@@ -21,3 +22,5 @@ export function userReducer(state: IUserState = defaultState, action: user.Actio
         }
     }
 }
+
+export const getUserEntity = (state: IUserState) => state.loggedInUser;
