@@ -30,6 +30,7 @@
     "reselect": "^3.0.1",
     "rxjs": "6.1.0",
     "rxjs-compat": "6.1.0",
+    "tassign": "^1.0.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
