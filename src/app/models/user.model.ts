@@ -9,6 +9,6 @@ export class UserModel {
   }
 
   isLoggedIn(): Boolean {
-      return false;
+      return (this.token && this.token.length > 0);
   }
 }

@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 
 import { CoreModule } from '@app/core';
 import { StoreModule } from '@ngrx/store';
+import { SharedModule } from '@app/shared';
+import { AppBootstrapModule } from '@app/bootstrap';
 import { reducers, metaReducers } from '@app/reducers';
 
 // Libraries
@@ -37,6 +39,8 @@ export function getAuthServiceConfigs() {
     BrowserModule,
     AppRoutingModule,
     CoreModule,
+    SharedModule,
+    AppBootstrapModule,
     SocialLoginModule,
     StoreModule.forRoot(reducers, {metaReducers}),
   ],
