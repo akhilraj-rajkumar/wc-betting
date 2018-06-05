@@ -1,14 +1,18 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { IAppState } from '@app/reducers';
+import { UserLoginAction } from '@app/actions';
 
 @Injectable()
-export class AuthService {
+export class AppAuthService {
   public isLoggedIn: boolean;
   public redirectUrl: string;
 
   constructor(
-    private router: Router) {
+    private router: Router,
+    private store: Store<IAppState>) {
   }
 
   login() {

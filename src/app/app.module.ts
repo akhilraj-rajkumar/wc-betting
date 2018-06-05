@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CoreModule } from '@app/core';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from '@app/reducers';
 
 // Libraries
 import {
@@ -19,12 +21,8 @@ export function getAuthServiceConfigs() {
   const config = new AuthServiceConfig(
       [
         {
-          id: FacebookLoginProvider.PROVIDER_ID,
-          provider: new FacebookLoginProvider('Your-Facebook-app-id')
-        },
-        {
           id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider('########')
+          provider: new GoogleLoginProvider('908897090124-vk3a6ces6lnvitticmq0orpeapuerev1.apps.googleusercontent.com')
         },
       ]
     );
@@ -39,7 +37,8 @@ export function getAuthServiceConfigs() {
     BrowserModule,
     AppRoutingModule,
     CoreModule,
-    SocialLoginModule
+    SocialLoginModule,
+    StoreModule.forRoot(reducers, {metaReducers}),
   ],
   providers: [
     {
