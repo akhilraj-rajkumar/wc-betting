@@ -10,6 +10,8 @@ import { SharedModule } from '@app/shared';
 import { AppBootstrapModule } from '@app/bootstrap';
 import { reducers, metaReducers } from '@app/reducers';
 
+import { LocalStorage } from '@ngx-pwa/local-storage';
+
 // Libraries
 import {
   SocialLoginModule,
@@ -48,7 +50,8 @@ export function getAuthServiceConfigs() {
     {
       provide: AuthServiceConfig,
       useFactory: getAuthServiceConfigs
-    }
+    },
+    LocalStorage
   ],
   bootstrap: [AppComponent]
 })

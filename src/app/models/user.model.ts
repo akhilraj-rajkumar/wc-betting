@@ -5,6 +5,7 @@ export class UserModel {
 
   desrialisze(input): UserModel {
     this.firstName = input.firstName;
+    this.token = input.token;
     return this;
   }
 

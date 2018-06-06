@@ -11,12 +11,23 @@ export class AuthGuardService implements CanActivate {
     }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this.authService.isLoggedIn) {
+    const path = route.routeConfig.path;
+    if (path === 'dashboard') {
+      this.authService.updateLoggedInStatus()
       return true;
+    } else if (this.authService.isUserLoggedIn()) {
+        return true;
     } else {
-      this.authService.redirectUrl = state.url;
-      this.router.navigate(['auth']);
+      this.router.navigate(['dashboard']);
       return false;
     }
+    // if (this.authService.isLoggedIn) {
+    //   return true;
+    // } else {
+    //   this.authService.redirectUrl = state.url;
+    //   this.router.navigate(['auth']);
+    //   return false;
+    // }
+    // return true;
   }
 }

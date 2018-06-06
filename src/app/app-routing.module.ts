@@ -7,13 +7,14 @@ import { AuthModule } from '@app/auth';
 import { HomeModule } from '@app/home';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: '@app/auth/auth.module#AuthModule'
   },
   {
-    path: 'home',
+    path: 'dashboard',
     loadChildren: '@app/home/home.module#HomeModule',
     canActivate: [AuthGuardService]
   }
