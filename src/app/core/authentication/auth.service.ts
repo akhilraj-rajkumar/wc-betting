@@ -15,19 +15,6 @@ import { BaseService, SUCCESS_STATUS, FAILURE_STATUS } from '../services/base.se
 @Injectable()
 export class AppAuthService extends BaseService {
   public redirectUrl: string;
-  // userStore: Observable<UserModel>;
-  // user: UserModel;
-  // private subscription: Subscription = new Subscription();
-
-  // constructor(
-  //   private router: Router,
-  //   private store: Store<IAppState>,
-  //   protected localStorage: LocalStorage) {
-  //     this.userStore = this.store.select(getLoggedInUser);
-  //     this.subscription.add(this.userStore.subscribe(state => {
-  //       this.user = state;
-  //     }));
-  // }
 
   login(userData) {
     const url = 'users/login';
@@ -48,11 +35,6 @@ export class AppAuthService extends BaseService {
         console.log(err);
       }
     );
-    // const user = new UserModel();
-    // user.token = userData['token'];
-    // user.firstName = userData['name'];
-    // this.localStorage.setItem('user', user).subscribe(() => {});
-    // this.store.dispatch(new UserLoginAction(user));
     if (this.redirectUrl) {
         this.router.navigate([this.redirectUrl]);
         this.redirectUrl = null;
@@ -65,15 +47,15 @@ export class AppAuthService extends BaseService {
     const url = 'users/logout';
     this.getData(url).subscribe(
       res => {
-
+        this.router.navigate(['/dashboard']);
       },
       err => {
-        
+        this.router.navigate(['/dashboard']);
       }
     );
     this.localStorage.removeItem('user').subscribe(() => {});
     this.store.dispatch(new UserLoginAction(new UserModel()));
-    this.router.navigate(['/dashboard']);
+    
   }
 
   updateLoggedInStatus() {

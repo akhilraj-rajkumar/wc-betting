@@ -4,15 +4,18 @@ import { combineReducers } from '@ngrx/store';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { userReducer, IUserState, getUserEntity } from './user.reducer';
+import { matchReducer, IMatchState, getMatchesEntity } from './match.reducer';
 
 import { environment } from '../../environments/environment';
 
 export interface IAppState {
-    user: IUserState;
+    user: IUserState,
+    match: IMatchState
 }
 
 export const reducers: ActionReducerMap<IAppState> = {
-    user: userReducer
+    user: userReducer,
+    match: matchReducer
 };
 
 export function logger(reducer: ActionReducer<IAppState>): ActionReducer<IAppState> {
@@ -36,4 +39,7 @@ export function logger(reducer: ActionReducer<IAppState>): ActionReducer<IAppSta
 export const getUserState = (state: IAppState) => state.user;
 // export const getUserState = createFeatureSelector<IAppState>('user');
 export const getLoggedInUser = createSelector(getUserState, getUserEntity);
+
+export const getMatchState = (state: IAppState) => state.match;
+export const getUpcomingMatchesList = createSelector(getMatchState, getMatchesEntity);
 
