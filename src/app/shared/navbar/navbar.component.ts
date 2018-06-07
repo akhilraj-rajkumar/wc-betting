@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IAppState, getLoggedInUser } from '@app/reducers';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+
+import { IAppState, getLoggedInUser } from '@app/reducers';
 import { UserModel } from '@app/models';
-import { UserLoginAction } from '@app/actions';
+import { AppAuthService } from '@app/core';
 
 import {
   AuthService,
@@ -21,8 +22,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   userStore: Observable<UserModel>;
   user: UserModel;
   private subscription: Subscription = new Subscription();
+
   constructor(private socialAuthService: AuthService,
-    private store: Store<IAppState>) { 
+    private store: Store<IAppState>,
+    private appAuthService: AppAuthService) { 
       this.userStore = this.store.select(getLoggedInUser);
       this.subscription.add(this.userStore.subscribe(state => {
         this.user = state;
@@ -40,12 +43,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
-        console.log(' sign in data : ' , userData);
-        const user = new UserModel();
-        user.token = userData['token'];
-        user.firstName = userData['name'];
-        this.store.dispatch(new UserLoginAction(user));
+        this.appAuthService.login(userData);
       }
     );
+  }
+
+  public signOut() {
+    this.appAuthService.logout();
   }
 }

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +10,9 @@ import { StoreModule } from '@ngrx/store';
 import { SharedModule } from '@app/shared';
 import { AppBootstrapModule } from '@app/bootstrap';
 import { reducers, metaReducers } from '@app/reducers';
+
+import { LocalStorage } from '@ngx-pwa/local-storage';
+import { OwlModule } from 'ngx-owl-carousel';
 
 // Libraries
 import {
@@ -43,12 +47,15 @@ export function getAuthServiceConfigs() {
     AppBootstrapModule,
     SocialLoginModule,
     StoreModule.forRoot(reducers, {metaReducers}),
+    HttpClientModule,
+    OwlModule,
   ],
   providers: [
     {
       provide: AuthServiceConfig,
       useFactory: getAuthServiceConfigs
-    }
+    },
+    LocalStorage
   ],
   bootstrap: [AppComponent]
 })
