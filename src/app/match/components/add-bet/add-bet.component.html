@@ -1,0 +1,66 @@
+<div class="card">
+  <div class="card-header card-header-danger">
+    <h3 class="card-title">ADD YOUR BETS</h3>
+    <p class="card-category">
+      Click '+' or '-' against any option to add your bet(s)
+    </p>
+  </div>
+  <div class="card-body">
+      <!-- <div class="col-md-3"> -->
+          <p class="card-category">Match #1</p>
+            <h5 class="card-title">ARG - GER
+              <small>on Thu, 14/06</small>
+            </h5>
+
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="text-warning"> <h4>Bet for ARG win </h4></td>
+                        <td class="td-actions text-right">
+                            <button mat-raised-button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                <i class="material-icons">remove</i>
+                            </button>
+                            <button mat-raised-button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                            1
+                            </button>
+                            <button mat-raised-button type="button" matTooltip="Remove" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                <i class="material-icons">add</i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-warning"> <h4>Bet for GER win </h4></td>
+                        <td class="td-actions text-right">
+                            <button mat-raised-button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                <i class="material-icons">remove</i>
+                            </button>
+                            <button mat-raised-button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                            1
+                            </button>
+                            <button mat-raised-button type="button" matTooltip="Remove" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                <i class="material-icons">add</i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-warning"> <h4>Bet for Draw </h4></td>
+                        <td class="td-actions text-right">
+                            <button mat-raised-button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                <i class="material-icons">remove</i>
+                            </button>
+                            <button mat-raised-button type="button" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                            1
+                            </button>
+                            <button mat-raised-button type="button" matTooltip="Remove" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                <i class="material-icons">add</i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+      <!-- </div> -->
+  </div>
+  <div class="card-footer">
+      <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="modalRef.hide()">Submit</button>
+  </div>
+</div>

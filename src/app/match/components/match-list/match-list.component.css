@@ -1,3 +1,8 @@
 .items {
     padding-right: 10pt;
 }
+
+a,
+a label {
+    cursor: pointer;
+}
