@@ -1,5 +1,38 @@
 <div class="main-content">
-    <p>
-        home works!
-      </p>
-</div>
+    <div class="container-fluid">
+        <!-- <div class="row"> -->
+            <owl-carousel
+              [options]="{items: 4, dots: false, navigation: false}"
+              [items]="images"
+              [carouselClasses]="['owl-theme', 'row', 'sliding']">
+              <div class="item items" *ngFor="let image of images;let i = index">
+                  <div class="card card-stats">
+                      <div class="card-header card-header-warning card-header-icon">
+                          <div class="card-icon">
+                              <i class="material-icons">content_copy</i>
+                          </div>
+                          <p class="card-category">Match #1</p>
+                          <h5 class="card-title">RUS - KSA
+                              <small>Thu, 14/06</small>
+                          </h5>
+                      </div>
+                      <div class="card-footer">
+                          <div class="stats" *ngIf="!user.isLoggedIn()">
+                              <i class="material-icons text-danger">warning</i>
+                              <a href="#">Login to BET</a>
+                          </div>
+                          <div class="stats" *ngIf="user.isLoggedIn()">
+                              <i class="material-icons text-danger">add</i>
+                              <a href="#">Add your BET</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </owl-carousel>
+            <div>
+              <p>Test</p>
+            </div>
+        <!-- </div> -->
+    </div>
+  </div>
+  

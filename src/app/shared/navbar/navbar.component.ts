@@ -43,7 +43,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
-        console.log(' sign in data : ' , userData);
         this.appAuthService.login(userData);
       }
     );

@@ -12,6 +12,7 @@ import { AppBootstrapModule } from '@app/bootstrap';
 import { reducers, metaReducers } from '@app/reducers';
 
 import { LocalStorage } from '@ngx-pwa/local-storage';
+import { OwlModule } from 'ngx-owl-carousel';
 
 // Libraries
 import {
@@ -47,6 +48,7 @@ export function getAuthServiceConfigs() {
     SocialLoginModule,
     StoreModule.forRoot(reducers, {metaReducers}),
     HttpClientModule,
+    OwlModule,
   ],
   providers: [
     {
