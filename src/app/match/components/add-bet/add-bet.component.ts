@@ -1,12 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
 import { AddBetService } from '../../services/add-bet.service';
-import { IAppState, getBetSuccess, getBetFailed } from '@app/reducers';
-import { MatchModel, ErrorModel } from '@app/models';
+import { IAppState, getBetSuccess, getBetFailed, getLoggedInUser } from '@app/reducers';
+import { MatchModel, ErrorModel, UserModel } from '@app/models';
 import { BetAddedFailedAction } from '@app/actions';
+import { tassign } from 'tassign';
 
 declare var $: any;
 
@@ -15,20 +16,20 @@ declare var $: any;
   templateUrl: './add-bet.component.html',
   styleUrls: ['./add-bet.component.css']
 })
-export class AddBetComponent implements OnInit {
+export class AddBetComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() match: MatchModel;
   @Output() closePopup = new EventEmitter();
 
   public loading = false;
   isSubmitted = false;
-  homeTeamBets: number = 0;
-  awayTeamBets: number = 0;
-  drawBets: number = 0;
 
-  betSuccessStore: Observable<{}>;
+  betSuccessStore: Observable<MatchModel>;
   betFailureStore: Observable<ErrorModel>;
+  userStore: Observable<UserModel>;
+  user: UserModel;
   private subscription: Subscription = new Subscription();
+  matchCopy: MatchModel;
 
   constructor(
     private store: Store<IAppState>,
@@ -36,10 +37,12 @@ export class AddBetComponent implements OnInit {
   ) {
     this.betSuccessStore = this.store.select(getBetSuccess);
     this.subscription.add(this.betSuccessStore.subscribe(state => {
-      if (state) {
+      if (state && this.isSubmitted) {
+        this.match.updatePointsFromCopy(state);
         this.hideModal();
         this.showNotification('Successfully added your bet', 'success')
       }
+      this.loading = false;
     }));
     this.betFailureStore = this.store.select(getBetFailed);
     this.subscription.add(this.betFailureStore.subscribe(state => {
@@ -47,22 +50,35 @@ export class AddBetComponent implements OnInit {
         this.showNotification(state.message, 'danger')
         this.isSubmitted = false;
       }
+      this.loading = false;
+    }));
+    this.userStore = this.store.select(getLoggedInUser);
+    this.subscription.add(this.userStore.subscribe(state => {
+      this.user = state;
     }));
   }
 
   ngOnInit() {
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    this.matchCopy = Object.assign(new MatchModel(), changes.match.currentValue);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   homeTeamBetCountUpdated(count) {
-    this.homeTeamBets = count;
+    this.matchCopy.homeTeamBets = count;
   }
 
   awayTeamBetCountUpdated(count) {
-    this.awayTeamBets = count;
+    this.matchCopy.awayTemaBets = count;
   }
 
   drawBetCountUpdated(count) {
-    this.drawBets = count;
+    this.matchCopy.drawBets =count;
   }
 
   hideModal() {
@@ -70,14 +86,27 @@ export class AddBetComponent implements OnInit {
   }
 
   submit() {
-    this.loading = true;
-    this.isSubmitted = true;
-    const options = {
-      homeTeam: this.homeTeamBets,
-      awayTeam: this.awayTeamBets,
-      draw: this.drawBets
+    if (this.validate()) {
+      this.loading = true;
+      this.isSubmitted = true;
+      this.betService.addBet(this.matchCopy);
     }
-    this.betService.addBet(this.match, options);
+  }
+
+  validate(): boolean {
+    if (this.matchCopy.homeTeamBets === 0 && 
+        this.matchCopy.awayTemaBets === 0 && 
+        this.matchCopy.drawBets === 0) {
+          this.showNotification('Please add atlease one bet to submit!', 'warning')
+          return false;
+    }
+    const diff = this.matchCopy.totalBets() - this.match.totalBets();
+    if (diff > this.user.points) {
+      // this.showNotification('You cannot bet more than your credit limit!', 'danger')
+      // return false;
+      return true;
+    }
+    return true;
   }
 
   showNotification(message, type){

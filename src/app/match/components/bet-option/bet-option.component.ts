@@ -9,7 +9,7 @@ export class BetOptionComponent implements OnInit {
 
   @Input() optionName: any;
   @Output() valueChange = new EventEmitter();
-  count: number;
+  @Input() count: number;
 
   constructor() {
     this.count = 0;
