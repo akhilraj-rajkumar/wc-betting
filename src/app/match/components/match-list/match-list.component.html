@@ -10,7 +10,7 @@
                           </div>
                           <p class="card-category">Match #{{match.matchNumber}}</p>
                           <h5 class="card-title">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
-                              <small>Thu, 14/06</small>
+                              <small>{{match.date | date: 'dd/MM'}}</small>
                           </h5>
                           <!-- <p class="card-category">Match #{{i}}</p>
                           <h5 class="card-title">ARG - GER

@@ -2,9 +2,14 @@
     <div class="container-fluid">
         <!-- <div class="row"> -->
           <app-match-list></app-match-list>
-            <div>
-              <p>Test</p>
-            </div>
+          <div class="row" *ngIf="user.isLoggedIn()">
+              <div class="col-lg-6 col-md-12">
+                  <app-future-bets></app-future-bets>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                  <app-bet-results></app-bet-results>
+              </div>
+          </div>
         <!-- </div> -->
     </div>
   </div>

@@ -1,0 +1,32 @@
+<div class="card">
+    <div class="card-header card-header-primary">
+        <h3 class="card-title">Upcoming Bets</h3>
+        <p class="card-category">
+          Your bets on upcoming matches
+        </p>
+    </div>
+    <div class="card-body">
+        <span *ngIf="allMatches.length == 0">You don't have any bets on upcoming matches</span>
+        <table class="table" *ngIf="allMatches.length > 0">
+            <thead class="text-primary">
+                <th>ID</th>
+                <th>Total Bets</th>
+                <th class="text-right">Actions</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let match of allMatches">
+                    <td>Match #{{match.matchNumber}}</td>
+                    <td>{{match.totalBets()}}</td>
+                    <td class="td-actions text-right">
+                        <button mat-raised-button type="button" matTooltip="Edit Task" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button mat-raised-button type="button" matTooltip="Remove" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                            <i class="material-icons">close</i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

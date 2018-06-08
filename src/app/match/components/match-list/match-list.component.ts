@@ -4,8 +4,10 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { tassign } from 'tassign';
 
 import { IAppState, getLoggedInUser, getUpcomingMatchesList } from '@app/reducers';
+import { MatchBetsListedAction } from '@app/actions';
 import { UserModel, MatchModel } from '@app/models';
 
 import { MatchListService } from '../../services/match-list.service';
@@ -25,6 +27,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
   matchesStorage: Observable<MatchModel[]>;
   allMatches: MatchModel[] = [];
   selectedMatch: MatchModel;
+
   images: any = [1, 2, 3, 4, 5, 6];
   private subscription: Subscription = new Subscription();
 
