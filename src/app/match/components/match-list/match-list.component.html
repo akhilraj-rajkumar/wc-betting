@@ -4,18 +4,28 @@
               [carouselClasses]="['owl-theme', 'row', 'sliding']">
               <div class="item items" *ngFor="let match of allMatches;let i = index">
                   <div class="card card-stats">
-                      <div class="card-header card-header-warning card-header-icon">
+                      <div class="card-header card-header-info card-header-icon">
                           <div class="card-icon">
-                              <i class="material-icons">content_copy</i>
+                              <!-- <i class="material-icons">content_copy</i>
+                              <i class="material-icons">content_copy</i> -->
+                              <img src={{match.homeTeam.logouUrl()}} class="logo "/>
+                              <img src={{match.awayTeam.logouUrl()}} class="logo"/>
                           </div>
-                          <p class="card-category">Match #{{match.matchNumber}}</p>
-                          <h5 class="card-title">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
-                              <small>{{match.date | date: 'dd/MM'}}</small>
-                          </h5>
+                          
                           <!-- <p class="card-category">Match #{{i}}</p>
                           <h5 class="card-title">ARG - GER
                               <small>Thu, 14/06</small>
-                          </h5> -->
+                          </h5>
+                        <p class="card-category">Match #{{match.matchNumber}}</p>
+                            <h5 class="card-title">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
+                                <small>{{match.date | date: 'dd/MM'}}</small>
+                            </h5> -->
+                      </div>
+                      <div class="card-body">
+                            <p >Match #{{match.matchNumber}}</p>
+                            <h5 >{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
+                                <small>{{match.date | date: 'dd/MM'}}</small>
+                            </h5>
                       </div>
                       <div class="card-footer">
                           <div class="stats" *ngIf="!user.isLoggedIn()">

@@ -13,4 +13,8 @@ export class TeamModel {
         this.logo = input.team_logo;
         return this;
     }
+
+    logouUrl() {
+        return 'http://10.6.13.18:8000/' + this.logo
+    }
 }
