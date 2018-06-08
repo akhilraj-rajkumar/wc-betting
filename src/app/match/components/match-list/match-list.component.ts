@@ -24,6 +24,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
 
   matchesStorage: Observable<MatchModel[]>;
   allMatches: MatchModel[] = [];
+  selectedMatch: MatchModel;
   images: any = [1, 2, 3, 4, 5, 6];
   private subscription: Subscription = new Subscription();
 
@@ -46,14 +47,22 @@ export class MatchListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.matchesService.fetchUpComingMatches();
+    this.matchesService.fetchUpComingMatches();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  openModal(template: TemplateRef<any>) {
+  openModal(template: TemplateRef<any>, match: MatchModel) {
+    this.selectedMatch = match;
+    this.modalService.config = {
+      backdrop: true
+    }
     this.modalRef = this.modalService.show(template);
+  }
+
+  closeModalPopup() {
+    this.modalRef.hide();
   }
 }

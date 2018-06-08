@@ -1,35 +1,35 @@
 <owl-carousel
               [options]="{items: 4, dots: false, navigation: false}"
-              [items]="images"
+              [items]="allMatches"
               [carouselClasses]="['owl-theme', 'row', 'sliding']">
-              <div class="item items" *ngFor="let match of images;let i = index">
+              <div class="item items" *ngFor="let match of allMatches;let i = index">
                   <div class="card card-stats">
                       <div class="card-header card-header-warning card-header-icon">
                           <div class="card-icon">
                               <i class="material-icons">content_copy</i>
                           </div>
-                          <!-- <p class="card-category">Match #{{match.matchNumber}}</p>
+                          <p class="card-category">Match #{{match.matchNumber}}</p>
                           <h5 class="card-title">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
                               <small>Thu, 14/06</small>
-                          </h5> -->
-                          <p class="card-category">Match #{{i}}</p>
+                          </h5>
+                          <!-- <p class="card-category">Match #{{i}}</p>
                           <h5 class="card-title">ARG - GER
                               <small>Thu, 14/06</small>
-                          </h5>
+                          </h5> -->
                       </div>
                       <div class="card-footer">
                           <div class="stats" *ngIf="!user.isLoggedIn()">
                               <i class="material-icons text-danger">warning</i>
-                              <a (click)="openModal(template)">Login to BET</a>
+                              <a >Login to BET</a>
                           </div>
                           <div class="stats" *ngIf="user.isLoggedIn()">
                               <i class="material-icons text-danger">add</i>
-                              <a href="#">Add your BET</a>
+                              <a (click)="openModal(template, match)">Add your BET</a>
                           </div>
                       </div>
                   </div>
               </div>
             </owl-carousel>
-            <ng-template #template>
-                <app-add-bet></app-add-bet>
+            <ng-template #template >
+                <app-add-bet [match]="selectedMatch" (closePopup)="closeModalPopup()"></app-add-bet>
             </ng-template>

@@ -15,7 +15,6 @@ export class MatchListService extends BaseService {
     const url = 'match/matches/upcoming';
     this.getData(url).subscribe(
       res => {
-        console.log(res);
         const responseStatus = res['status'];
         if (responseStatus === SUCCESS_STATUS) {
           const data = res['upcoming_matches'];

@@ -1,14 +1,15 @@
 import { createSelector } from 'reselect';
 import { Action } from '@ngrx/store';
-import { UserModel } from '@app/models';
+import { UserModel, ErrorModel } from '@app/models';
 import * as user from '@app/actions';
 import { tassign } from 'tassign';
 
 export interface IUserState {
-    loggedInUser: UserModel;
+    loggedInUser: UserModel,
+    loginFailed: ErrorModel
 }
 
-const defaultState: IUserState = {loggedInUser: new UserModel()};
+const defaultState: IUserState = {loggedInUser: new UserModel(), loginFailed: new ErrorModel()};
 
 export function userReducer(state: IUserState = defaultState, action: user.Actions): IUserState {
     switch (action.type) {
@@ -17,6 +18,9 @@ export function userReducer(state: IUserState = defaultState, action: user.Actio
         }
         case user.USER_LOGGED_OUT: {
             return state;
+        }
+        case user.USER_LOGIN_FAILED: {
+            return tassign(state, { loginFailed: action.payload })
         }
         default: {
             return state;

@@ -4,7 +4,7 @@ import { combineReducers } from '@ngrx/store';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { userReducer, IUserState, getUserEntity } from './user.reducer';
-import { matchReducer, IMatchState, getMatchesEntity } from './match.reducer';
+import { matchReducer, IMatchState, getMatchesEntity, getBetSuccessEntity, getBetFailedEntity } from './match.reducer';
 
 import { environment } from '../../environments/environment';
 
@@ -42,4 +42,6 @@ export const getLoggedInUser = createSelector(getUserState, getUserEntity);
 
 export const getMatchState = (state: IAppState) => state.match;
 export const getUpcomingMatchesList = createSelector(getMatchState, getMatchesEntity);
+export const getBetSuccess = createSelector(getMatchState, getBetSuccessEntity);
+export const getBetFailed = createSelector(getMatchState, getBetFailedEntity);
 
