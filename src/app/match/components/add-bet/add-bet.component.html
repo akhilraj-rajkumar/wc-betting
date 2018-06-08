@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-header card-header-danger">
+    <h3 class="card-title">ADD YOUR BETS</h3>
+    <p class="card-category">
+      Click '+' or '-' against any option to add or remove bet(s)
+    </p>
+  </div>
+  <div class="card-body">
+          <p class="card-category">Match #{{match.matchNumber}}</p>
+            <h5 class="card-title">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
+              <small>on Thu, 14/06</small>
+            </h5>
+            <app-bet-option [optionName]="match.homeTeam.shortName + ' WINS'" (valueChange)="homeTeamBetCountUpdated($event)"></app-bet-option>
+            <app-bet-option [optionName]="match.awayTeam.shortName + ' WINS'" (valueChange)="awayTeamBetCountUpdated($event)"></app-bet-option>
+            <app-bet-option [optionName]="'MATCH DRAWN'" (valueChange)="drawBetCountUpdated($event)"></app-bet-option>
+  </div>
+  <div class="card-footer">
+      <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="hideModal()">Cancel</button>
+      <span class="col-6"></span>
+      <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="submit()">Submit</button>
+  </div>
+</div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
