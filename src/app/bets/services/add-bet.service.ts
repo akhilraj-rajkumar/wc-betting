@@ -18,7 +18,7 @@ export class AddBetService extends BaseService {
         { team_id: match.awayTeam.id, number_of_bids: match.awayTemaBets },
         { team_id: 2, number_of_bids: match.drawBets }
       ]
-    }
+    };
     this.postData(url, params).subscribe(
       res => {
         const responseStatus = res['status'];

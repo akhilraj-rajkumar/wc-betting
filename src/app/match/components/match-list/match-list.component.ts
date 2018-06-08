@@ -61,7 +61,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
     this.selectedMatch = match;
     this.modalService.config = {
       backdrop: true
-    }
+    };
     this.modalRef = this.modalService.show(template);
   }
 

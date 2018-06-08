@@ -1,8 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import { IAppState, getBetSuccess } from '@app/reducers';
 import { MatchModel } from '@app/models';
@@ -18,7 +20,11 @@ export class FutureBetsComponent implements OnInit, OnDestroy {
   allMatches: MatchModel[] = [];
   betSuccessStore: Observable<MatchModel>;
 
-  constructor(private store: Store<IAppState>) {
+  selectedMatch: MatchModel;
+  modalRef: BsModalRef;
+
+  constructor(private store: Store<IAppState>,
+    private modalService: BsModalService) {
     this.betSuccessStore = this.store.select(getBetSuccess);
     this.subscription.add(this.betSuccessStore.subscribe(state => {
       if (state) {
@@ -26,7 +32,7 @@ export class FutureBetsComponent implements OnInit, OnDestroy {
         filtered.forEach(element => {
           element.updatePointsFromCopy(state);
         });
-        if (filtered.length == 0) {
+        if (filtered.length === 0) {
           this.allMatches.push(state);
         }
       }
@@ -38,5 +44,17 @@ export class FutureBetsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  openModal(template: TemplateRef<any>, match: MatchModel) {
+    this.selectedMatch = match;
+    this.modalService.config = {
+      backdrop: true
+    };
+    this.modalRef = this.modalService.show(template);
+  }
+
+  closeModalPopup() {
+    this.modalRef.hide();
   }
 }

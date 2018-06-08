@@ -8,8 +8,12 @@
                           <div class="card-icon">
                               <!-- <i class="material-icons">content_copy</i>
                               <i class="material-icons">content_copy</i> -->
-                              <img src={{match.homeTeam.logouUrl()}} class="logo "/>
-                              <img src={{match.awayTeam.logouUrl()}} class="logo"/>
+                              <!-- <div class="row">
+                                <img src={{match.homeTeam.logouUrl()}} class="logo  col-6"/>
+                                <img src={{match.awayTeam.logouUrl()}} class="logo col-6"/>
+                              </div> -->
+                              <h5 >Match #{{match.matchNumber}}
+                              <small>{{match.date | date: 'dd/MM'}}</small></h5>
                           </div>
                           
                           <!-- <p class="card-category">Match #{{i}}</p>
@@ -22,10 +26,12 @@
                             </h5> -->
                       </div>
                       <div class="card-body">
-                            <p >Match #{{match.matchNumber}}</p>
-                            <h5 >{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
-                                <small>{{match.date | date: 'dd/MM'}}</small>
-                            </h5>
+                        <!-- <h5 >{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}</h5> -->
+                        <div class="row">
+                            <img src={{match.homeTeam.logouUrl()}} class="logo col-4"/>
+                            <h5>{{match.homeTeam.shortName}}-{{match.awayTeam.shortName}}</h5>
+                            <img src={{match.awayTeam.logouUrl()}} class="logo col-4"/>
+                        </div>
                       </div>
                       <div class="card-footer">
                           <div class="stats" *ngIf="!user.isLoggedIn()">
@@ -33,7 +39,7 @@
                               <a >Login to BET</a>
                           </div>
                           <div class="stats" *ngIf="user.isLoggedIn()">
-                              <i class="material-icons text-danger">add</i>
+                              <i class="material-icons text-success">add</i>
                               <a (click)="openModal(template, match)">Add your BET</a>
                           </div>
                       </div>
