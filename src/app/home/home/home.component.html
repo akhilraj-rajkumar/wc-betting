@@ -10,6 +10,14 @@
                   <app-bet-results></app-bet-results>
               </div>
           </div>
+          <div class="card" *ngIf="!user.isLoggedIn()">
+            <div class="card-header card-header-success">
+                <h3 class="card-title">Login with Google Account</h3>
+                <p class="card-category">
+                  Plese login wit your @qburst.com account. 
+                </p>
+            </div>
+            <div class="card-body">
         <!-- </div> -->
     </div>
   </div>

@@ -35,6 +35,7 @@ export class FutureBetsComponent implements OnInit, OnDestroy {
         if (filtered.length === 0) {
           this.allMatches.push(state);
         }
+        this.allMatches.sort((a, b) => a.id > b.id ? 1 : 0);
       }
     }));
   }

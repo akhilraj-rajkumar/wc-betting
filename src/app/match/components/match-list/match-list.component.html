@@ -27,10 +27,15 @@
                       </div>
                       <div class="card-body">
                         <!-- <h5 >{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}</h5> -->
-                        <div class="row">
-                            <img src={{match.homeTeam.logouUrl()}} class="logo col-4"/>
-                            <h5>{{match.homeTeam.shortName}}-{{match.awayTeam.shortName}}</h5>
-                            <img src={{match.awayTeam.logouUrl()}} class="logo col-4"/>
+                        <div class="row justify-content-md-center h-100">
+                            <!-- <img src={{match.homeTeam.logouUrl()}} class="logo col-3 border"/> -->
+                            <div class="logo col-3">
+                                <img src={{match.homeTeam.logouUrl()}} class=" shadow rounded"/>
+                            </div>
+                            <h5 class="col-5 text-center match-title">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}</h5>
+                            <div class="logo col-3">
+                                <img src={{match.awayTeam.logouUrl()}} class=" shadow rounded"/>
+                            </div>
                         </div>
                       </div>
                       <div class="card-footer">
