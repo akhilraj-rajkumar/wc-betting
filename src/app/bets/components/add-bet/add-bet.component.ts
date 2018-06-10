@@ -40,14 +40,14 @@ export class AddBetComponent implements OnInit, OnDestroy, OnChanges {
       if (state && this.isSubmitted) {
         this.match.updatePointsFromCopy(state);
         this.hideModal();
-        this.showNotification('Successfully added your bet', 'success')
+        this.showNotification('Your bet added Successfully', 'success');
       }
       this.loading = false;
     }));
     this.betFailureStore = this.store.select(getBetFailed);
     this.subscription.add(this.betFailureStore.subscribe(state => {
       if (state.message && this.isSubmitted) {
-        this.showNotification(state.message, 'danger')
+        this.showNotification(state.message, 'danger');
         this.isSubmitted = false;
       }
       this.loading = false;
@@ -109,7 +109,7 @@ export class AddBetComponent implements OnInit, OnDestroy, OnChanges {
     return true;
   }
 
-  showNotification(message, type){
+  showNotification(message, type) {
     // const type = ['','info','success','warning','danger'];
 
     // const color = Math.floor((Math.random() * 4) + 1);
@@ -118,7 +118,7 @@ export class AddBetComponent implements OnInit, OnDestroy, OnChanges {
         icon: 'notifications',
         message: message
 
-    },{
+    }, {
         type: type,
         timer: 2000,
         placement: {
