@@ -20,7 +20,7 @@ export class AppAuthService extends BaseService {
     const url = 'users/login';
     const params = {
       'auth_id': userData['token']
-    }
+    };
     this.postData(url, params).subscribe(
       res => {
         const responseStatus = res['status'];
@@ -55,7 +55,6 @@ export class AppAuthService extends BaseService {
     );
     this.localStorage.removeItem('user').subscribe(() => {});
     this.store.dispatch(new UserLoginAction(new UserModel()));
-    
   }
 
   updateLoggedInStatus() {
