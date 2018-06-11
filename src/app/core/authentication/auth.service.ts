@@ -63,6 +63,7 @@ export class AppAuthService extends BaseService {
         const model: UserModel = new UserModel().desrialisze(user);
         this.store.dispatch(new UserLoginAction(model));
       }
+      this.updateUserProfile();
     });
   }
 

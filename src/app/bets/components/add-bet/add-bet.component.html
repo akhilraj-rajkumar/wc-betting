@@ -20,8 +20,8 @@
     </div>
           
             <app-bet-option [optionName]="match.homeTeam.shortName + ' WINS'" [count]="match.homeTeamBets" [totalBets]="matchBet.homeBets" [maxCount]="pointsLeft" (valueChange)="homeTeamBetCountUpdated($event)"></app-bet-option>
-            <app-bet-option [optionName]="match.awayTeam.shortName + ' WINS'" [count]="match.awayTemaBets" [maxCount]="pointsLeft" (valueChange)="awayTeamBetCountUpdated($event)"></app-bet-option>
-            <app-bet-option [optionName]="'MATCH DRAW'" [count]="match.drawBets" [maxCount]="pointsLeft" (valueChange)="drawBetCountUpdated($event)"></app-bet-option>
+            <app-bet-option [optionName]="match.awayTeam.shortName + ' WINS'" [count]="match.awayTemaBets" [totalBets]="matchBet.awayBets" [maxCount]="pointsLeft" (valueChange)="awayTeamBetCountUpdated($event)"></app-bet-option>
+            <app-bet-option [optionName]="'MATCH DRAW'" [count]="match.drawBets" [totalBets]="matchBet.drawBets" [maxCount]="pointsLeft" (valueChange)="drawBetCountUpdated($event)"></app-bet-option>
   </div>
   <div class="card-footer">
       <button mat-raised-button type="submit" class="btn btn-success pull-right" (click)="hideModal()">Cancel</button>
