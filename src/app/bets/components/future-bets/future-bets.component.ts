@@ -6,9 +6,10 @@ import * as _ from 'lodash';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
-import { IAppState, getBetSuccess, getBetMatchesList } from '@app/reducers';
+import { IAppState, getBetSuccess, getBetMatchesList, getUpcomingMatchesList } from '@app/reducers';
 import { MatchModel } from '@app/models';
 import { AddBetService } from '../../services/add-bet.service';
+import { FutureBetsService } from '../../services/future-bets.service';
 
 @Component({
   selector: 'app-future-bets',
@@ -20,20 +21,30 @@ export class FutureBetsComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   addedBets: MatchModel[] = [];
   betsStore: Observable<MatchModel[]>;
+  matchesStorage: Observable<MatchModel[]>;
 
   selectedMatch: MatchModel;
   modalRef: BsModalRef;
 
   constructor(private store: Store<IAppState>,
     private modalService: BsModalService,
-    private betService: AddBetService) {
+    private betService: AddBetService,
+    private betListService: FutureBetsService) {
     this.betsStore = this.store.select(getBetMatchesList);
     this.subscription.add(this.betsStore.subscribe(state => {
-        this.addedBets = state;
+      this.addedBets = state;
+      // this.addedBets = this.addedBets.filter(item => item.totalBets() > 0)
+    }));
+    this.matchesStorage = this.store.select(getUpcomingMatchesList);
+    this.subscription.add(this.matchesStorage.subscribe(state => {
+      if (state.length > 0) {
+        this.betListService.fetchAllBets();
+      }
     }));
   }
 
   ngOnInit() {
+    
   }
 
   ngOnDestroy() {

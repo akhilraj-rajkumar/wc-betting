@@ -10,6 +10,7 @@ import { FutureBetsComponent } from './components/future-bets/future-bets.compon
 import { AddBetComponent } from './components/add-bet/add-bet.component';
 import { BetOptionComponent } from './components/bet-option/bet-option.component';
 import { AddBetService } from './services/add-bet.service';
+import { FutureBetsService } from './services/future-bets.service';
 
 import { CoreModule } from '@app/core';
 
@@ -21,7 +22,7 @@ import { CoreModule } from '@app/core';
     OwlModule,
     LoadingModule
   ],
-  providers: [AddBetService],
+  providers: [AddBetService, FutureBetsService],
   declarations: [BetResultsComponent, FutureBetsComponent, AddBetComponent, BetOptionComponent],
   exports: [BetResultsComponent, FutureBetsComponent, AddBetComponent, BetOptionComponent]
 })

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
@@ -30,11 +31,22 @@ export class ProfileComponent implements OnInit {
   }
 
   loadChart() {
+    var result = [];
+    for (var i=6; i>=0; i--) {
+        var d = new Date();
+        d.setDate(d.getDate() - i);
+        var datePipe = new DatePipe("en-US");
+        const date = datePipe.transform(d, 'dd/MM');
+        result.push( date )
+    }
     const dataDailySalesChart: any = {
-      labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+      labels: result,
       series: [
-          [12, 17, 7, 17, 23, 18, 38]
+        [0, 0, 0, 0, 0, 0, 0]
       ]
+      // series: [
+      //     [12, 17, 7, 17, 23, 18, 38]
+      // ]
   };
 
  const optionsDailySalesChart: any = {
