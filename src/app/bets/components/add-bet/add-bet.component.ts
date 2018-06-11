@@ -23,6 +23,7 @@ export class AddBetComponent implements OnInit, OnDestroy, OnChanges {
 
   public loading = false;
   isSubmitted = false;
+  public pointsLeft = 0;
 
   betSuccessStore: Observable<MatchModel>;
   betFailureStore: Observable<ErrorModel>;
@@ -39,6 +40,7 @@ export class AddBetComponent implements OnInit, OnDestroy, OnChanges {
     this.subscription.add(this.betSuccessStore.subscribe(state => {
       if (state && this.isSubmitted) {
         this.match.updatePointsFromCopy(state);
+        // this.user.points = this.user.points - this.match.totalBets();
         this.hideModal();
         this.showNotification('Your bet added Successfully', 'success');
       }
@@ -55,6 +57,7 @@ export class AddBetComponent implements OnInit, OnDestroy, OnChanges {
     this.userStore = this.store.select(getLoggedInUser);
     this.subscription.add(this.userStore.subscribe(state => {
       this.user = state;
+      this.pointsLeft = this.user.points;
     }));
   }
 
@@ -69,16 +72,24 @@ export class AddBetComponent implements OnInit, OnDestroy, OnChanges {
     this.subscription.unsubscribe();
   }
 
+  updateUserPoints() {
+    const diff = this.matchCopy.totalBets() - this.match.totalBets();
+    this.pointsLeft = this.user.points - diff;
+  }
+
   homeTeamBetCountUpdated(count) {
     this.matchCopy.homeTeamBets = count;
+    this.updateUserPoints();
   }
 
   awayTeamBetCountUpdated(count) {
     this.matchCopy.awayTemaBets = count;
+    this.updateUserPoints();
   }
 
   drawBetCountUpdated(count) {
     this.matchCopy.drawBets =count;
+    this.updateUserPoints();
   }
 
   hideModal() {
@@ -89,7 +100,8 @@ export class AddBetComponent implements OnInit, OnDestroy, OnChanges {
     if (this.validate()) {
       this.loading = true;
       this.isSubmitted = true;
-      this.betService.addBet(this.matchCopy);
+      const diff = this.matchCopy.totalBets() - this.match.totalBets();
+      this.betService.addBet(this.matchCopy, diff);
     }
   }
 

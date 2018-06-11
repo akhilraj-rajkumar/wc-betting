@@ -24,8 +24,8 @@
                 </li>
                 <li class="nav-item dropdown"  *ngIf="user.isLoggedIn()">
                     <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="material-icons">notifications</i>
-                        <span class="notification">1</span>
+                        <i class="material-icons">confirmation_number</i>
+                        <span class="notification">{{user.points}}</span>
                         <p>
                             <span class="d-lg-none d-md-block">Some Actions</span>
                         </p>

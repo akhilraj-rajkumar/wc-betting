@@ -6,13 +6,22 @@
     </p>
   </div>
   <div class="card-body">
+    <div class="row">
+      <div class="col-9">
           <p class="card-category">Match #{{match.matchNumber}}</p>
-            <h5 class="card-title">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
-              <small>on {{match.date | date: 'dd/MM'}}</small>
-            </h5>
-            <app-bet-option [optionName]="match.homeTeam.shortName + ' WINS'" [count]="match.homeTeamBets" (valueChange)="homeTeamBetCountUpdated($event)"></app-bet-option>
-            <app-bet-option [optionName]="match.awayTeam.shortName + ' WINS'" [count]="match.awayTemaBets" (valueChange)="awayTeamBetCountUpdated($event)"></app-bet-option>
-            <app-bet-option [optionName]="'MATCH DRAW'" [count]="match.drawBets" (valueChange)="drawBetCountUpdated($event)"></app-bet-option>
+          <h5 class="card-title">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
+            <small>on {{match.date | date: 'dd/MM'}}</small>
+          </h5>
+      </div>
+      <div class="col-3 text-right">
+          <p class="card-category">Points left</p>
+          <h5 class="card-title">{{pointsLeft}}</h5>
+      </div>
+    </div>
+          
+            <app-bet-option [optionName]="match.homeTeam.shortName + ' WINS'" [count]="match.homeTeamBets" [maxCount]="pointsLeft" (valueChange)="homeTeamBetCountUpdated($event)"></app-bet-option>
+            <app-bet-option [optionName]="match.awayTeam.shortName + ' WINS'" [count]="match.awayTemaBets" [maxCount]="pointsLeft" (valueChange)="awayTeamBetCountUpdated($event)"></app-bet-option>
+            <app-bet-option [optionName]="'MATCH DRAW'" [count]="match.drawBets" [maxCount]="pointsLeft" (valueChange)="drawBetCountUpdated($event)"></app-bet-option>
   </div>
   <div class="card-footer">
       <button mat-raised-button type="submit" class="btn btn-success pull-right" (click)="hideModal()">Cancel</button>

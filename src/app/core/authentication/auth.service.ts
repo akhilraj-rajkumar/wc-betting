@@ -67,6 +67,7 @@ export class AppAuthService extends BaseService {
   }
 
   isUserLoggedIn(): Boolean {
+    this.updateLoggedInStatus();
     return this.user.isLoggedIn();
   }
  }

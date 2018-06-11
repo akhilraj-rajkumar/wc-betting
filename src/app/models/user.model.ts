@@ -5,6 +5,7 @@ export class UserModel {
   token: string;
   fullName: string;
   points: number;
+  profileImage: string;
 
   desrialisze(input): UserModel {
     this.firstName = input.firstName;
@@ -13,6 +14,7 @@ export class UserModel {
     this.email = input.email;
     this.token = input.token;
     this.points = input.points;
+    this.profileImage = input.profileImage
     return this;
   }
 
@@ -23,6 +25,7 @@ export class UserModel {
     this.token = data['token'];
     this.email = data['email'];
     this.points = data['points'];
+    this.profileImage = data['profile']
     return this;
   }
 

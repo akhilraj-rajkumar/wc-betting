@@ -6,8 +6,9 @@ import * as _ from 'lodash';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
-import { IAppState, getBetSuccess } from '@app/reducers';
+import { IAppState, getBetSuccess, getBetMatchesList } from '@app/reducers';
 import { MatchModel } from '@app/models';
+import { AddBetService } from '../../services/add-bet.service';
 
 @Component({
   selector: 'app-future-bets',
@@ -17,26 +18,18 @@ import { MatchModel } from '@app/models';
 export class FutureBetsComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
-  allMatches: MatchModel[] = [];
-  betSuccessStore: Observable<MatchModel>;
+  addedBets: MatchModel[] = [];
+  betsStore: Observable<MatchModel[]>;
 
   selectedMatch: MatchModel;
   modalRef: BsModalRef;
 
   constructor(private store: Store<IAppState>,
-    private modalService: BsModalService) {
-    this.betSuccessStore = this.store.select(getBetSuccess);
-    this.subscription.add(this.betSuccessStore.subscribe(state => {
-      if (state) {
-        const filtered = this.allMatches.filter( item => item.id === state.id);
-        filtered.forEach(element => {
-          element.updatePointsFromCopy(state);
-        });
-        if (filtered.length === 0) {
-          this.allMatches.push(state);
-        }
-        this.allMatches.sort((a, b) => a.id > b.id ? 1 : 0);
-      }
+    private modalService: BsModalService,
+    private betService: AddBetService) {
+    this.betsStore = this.store.select(getBetMatchesList);
+    this.subscription.add(this.betsStore.subscribe(state => {
+        this.addedBets = state;
     }));
   }
 
@@ -57,5 +50,9 @@ export class FutureBetsComponent implements OnInit, OnDestroy {
 
   closeModalPopup() {
     this.modalRef.hide();
+  }
+
+  deleteBetOfMatch(match: MatchModel) {
+    this.betService.deleteAllBetOfMatch(match);
   }
 }

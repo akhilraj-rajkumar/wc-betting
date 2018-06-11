@@ -1,3 +1,15 @@
+<!-- <div class="card card-stats">
+    <div class="card-header card-header-info card-header-icon">
+        <div class="card-icon">
+            <i class="material-icons">info</i>
+        </div>
+    </div>
+    <div class="card-body">
+        <ul>
+            <li></li>
+        </ul>
+    </div>
+</div> -->
 <owl-carousel
               [options]="{items: 4, dots: false, navigation: false}"
               [items]="allMatches"
@@ -44,8 +56,8 @@
                               <a >Login to BET</a>
                           </div>
                           <div class="stats" *ngIf="user.isLoggedIn()">
-                              <i class="material-icons text-success">add</i>
-                              <a (click)="openModal(template, match)">Add your BET</a>
+                              <!-- <i class="material-icons text-success">add</i> -->
+                              <a class="btn btn-white btn-round" (click)="openModal(template, match)">Add your BET</a>
                           </div>
                       </div>
                   </div>
