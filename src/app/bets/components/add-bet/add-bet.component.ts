@@ -4,10 +4,11 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
 import { AddBetService } from '../../services/add-bet.service';
-import { IAppState, getBetSuccess, getBetFailed, getLoggedInUser } from '@app/reducers';
-import { MatchModel, ErrorModel, UserModel } from '@app/models';
+import { IAppState, getBetSuccess, getBetFailed, getLoggedInUser, getMatchAllBets } from '@app/reducers';
+import { MatchModel, ErrorModel, UserModel, BetModel } from '@app/models';
 import { BetAddedFailedAction } from '@app/actions';
 import { tassign } from 'tassign';
+import { MatchBetsService } from '../../services/match-bets.service';
 
 declare var $: any;
 
@@ -25,16 +26,19 @@ export class AddBetComponent implements OnInit, OnDestroy, OnChanges {
   isSubmitted = false;
   public pointsLeft = 0;
 
+  matchBetsStore: Observable<BetModel>;
   betSuccessStore: Observable<MatchModel>;
   betFailureStore: Observable<ErrorModel>;
   userStore: Observable<UserModel>;
   user: UserModel;
   private subscription: Subscription = new Subscription();
   matchCopy: MatchModel;
+  matchBet: BetModel = new BetModel();
 
   constructor(
     private store: Store<IAppState>,
-    private betService: AddBetService
+    private betService: AddBetService,
+    private matchBetsService: MatchBetsService
   ) {
     this.betSuccessStore = this.store.select(getBetSuccess);
     this.subscription.add(this.betSuccessStore.subscribe(state => {
@@ -59,13 +63,23 @@ export class AddBetComponent implements OnInit, OnDestroy, OnChanges {
       this.user = state;
       this.pointsLeft = this.user.points;
     }));
+    this.matchBetsStore = this.store.select(getMatchAllBets);
+    this.subscription.add(this.matchBetsStore.subscribe(state => {
+      if (state) {
+        this.matchBet = state;
+      }
+    }));
   }
 
   ngOnInit() {
+    
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.matchCopy = Object.assign(new MatchModel(), changes.match.currentValue);
+    if (this.matchCopy) {
+      this.matchBetsService.getDetailsOfMatch(this.matchCopy);
+    }
   }
 
   ngOnDestroy() {
