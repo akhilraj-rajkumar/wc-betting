@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
@@ -17,11 +17,12 @@ export const FAILURE_STATUS = 1;
 })
 export class BaseService {
 
+  // private baseUrl = 'http://localhost:8000/';
   private baseUrl: string = 'http://10.6.13.18:8000/'; // akhilraj's ip
   // private baseUrl: string = 'http://10.6.9.34:8000/'; // siraj's ip
   userStore: Observable<UserModel>;
   user: UserModel;
-  private subscription: Subscription = new Subscription();
+  public subscription: Subscription = new Subscription();
 
   constructor(
     protected httpClient: HttpClient,
@@ -37,12 +38,12 @@ export class BaseService {
 
   getData(url) {
     const finalUrl = this.baseUrl + url;
-    var token = ''
+    let token = '';
     if (this.user.isLoggedIn()) {
       token = 'Token ' + this.user.token;
     }
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': token
       })
@@ -52,12 +53,12 @@ export class BaseService {
 
   postData(url, params) {
     const finalUrl = this.baseUrl + url;
-    var token = ''
+    let token = '';
     if (this.user.isLoggedIn()) {
       token = 'Token ' + this.user.token;
     }
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': token
       })

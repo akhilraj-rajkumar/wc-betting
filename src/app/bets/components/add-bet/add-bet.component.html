@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-header card-header-success">
+    <h3 class="card-title">ADD YOUR BETS</h3>
+    <p class="card-category">
+      Click '+' or '-' against any option to add or remove bet(s)
+    </p>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-9">
+          <p class="card-category">Match #{{match.matchNumber}}</p>
+          <h5 class="card-title">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
+            <small>on {{match.date | date: 'dd/MM'}}</small>
+          </h5>
+      </div>
+      <div class="col-3 text-right">
+          <p class="card-category">Points left</p>
+          <h5 class="card-title">{{pointsLeft}}</h5>
+      </div>
+    </div>
+          
+            <app-bet-option [optionName]="match.homeTeam.shortName + ' WINS'" [count]="match.homeTeamBets" [maxCount]="pointsLeft" (valueChange)="homeTeamBetCountUpdated($event)"></app-bet-option>
+            <app-bet-option [optionName]="match.awayTeam.shortName + ' WINS'" [count]="match.awayTemaBets" [maxCount]="pointsLeft" (valueChange)="awayTeamBetCountUpdated($event)"></app-bet-option>
+            <app-bet-option [optionName]="'MATCH DRAW'" [count]="match.drawBets" [maxCount]="pointsLeft" (valueChange)="drawBetCountUpdated($event)"></app-bet-option>
+  </div>
+  <div class="card-footer">
+      <button mat-raised-button type="submit" class="btn btn-success pull-right" (click)="hideModal()">Cancel</button>
+      <span class="col-6"></span>
+      <button mat-raised-button type="submit" class="btn btn-success pull-right" (click)="submit()">Submit</button>
+  </div>
+</div>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>

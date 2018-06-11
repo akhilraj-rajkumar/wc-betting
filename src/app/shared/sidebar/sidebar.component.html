@@ -3,7 +3,7 @@
         <!-- <div class="logo-img">
             <img src="/assets/img/angular2-logo-red.png"/>
         </div> -->
-        Betting
+        WC Betting 2018
     </a>
 </div>
 <div class="sidebar-wrapper">
@@ -55,13 +55,25 @@
     </ul>
   </div> -->
     <ul class="nav">
-        <li  class="nav-item active">
-            <a class="nav-link" routerLinkActive="active" [routerLink]="[dashboard]">
+        <li  class="nav-item"  routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/dashboard']">
                 <i class="material-icons">dashboard</i>
                 <p>Dashboard</p>
             </a>
         </li>
-        <li routerLinkActive="active" class="nav-item dropdown" *ngIf="user.isLoggedIn()">
+        <li  class="nav-item" routerLinkActive="active" *ngIf="user.isLoggedIn()" >
+            <a class="nav-link" [routerLink]="['/user/profile']">
+                <i class="material-icons">person</i>
+                <p>Profile</p>
+            </a>
+        </li>
+        <li  class="nav-item" routerLinkActive="active"  *ngIf="user.isLoggedIn()">
+            <a class="nav-link" [routerLink]="['/user/leaderboard']">
+                <i class="material-icons">flag</i>
+                <p>Leaderboard</p>
+            </a>
+        </li>
+        <!-- <li routerLinkActive="active" class="nav-item dropdown" *ngIf="user.isLoggedIn()">
             <a class="nav-link" id="navbarDropdownMenuLink"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="material-icons">person</i>
                 <p>User</p>
@@ -69,7 +81,7 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" (click)="signOut()">Logout</a>
             </div>
-        </li>
+        </li> -->
     </ul>
 </div>
 

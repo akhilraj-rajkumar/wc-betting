@@ -10,6 +10,7 @@ export class BetOptionComponent implements OnInit {
   @Input() optionName: any;
   @Output() valueChange = new EventEmitter();
   @Input() count: number;
+  @Input() maxCount: number;
 
   constructor() {
     this.count = 0;
@@ -19,8 +20,10 @@ export class BetOptionComponent implements OnInit {
   }
 
   increment() {
-    this.count = this.count + 1;
-    this.valueChange.emit(this.count);
+    if (this.maxCount > 0) {
+      this.count = this.count + 1;
+      this.valueChange.emit(this.count);
+    }
   }
 
   descrement() {

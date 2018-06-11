@@ -6,3 +6,26 @@ a,
 a label {
     cursor: pointer;
 }
+
+.logo {
+    height: 30px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.logo img {
+    height: 100%;
+}
+
+.match-title {
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+.bg {
+    height: 30px;
+    background: url("http://localhost:8000/static/uploads/teamLogos/Russia_flag.png") no-repeat;
+    background-size: cover;
+}
+.tst { display: block; }

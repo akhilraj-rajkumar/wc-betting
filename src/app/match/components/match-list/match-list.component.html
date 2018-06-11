@@ -1,21 +1,54 @@
+<!-- <div class="card card-stats">
+    <div class="card-header card-header-info card-header-icon">
+        <div class="card-icon">
+            <i class="material-icons">info</i>
+        </div>
+    </div>
+    <div class="card-body">
+        <ul>
+            <li></li>
+        </ul>
+    </div>
+</div> -->
 <owl-carousel
               [options]="{items: 4, dots: false, navigation: false}"
               [items]="allMatches"
               [carouselClasses]="['owl-theme', 'row', 'sliding']">
               <div class="item items" *ngFor="let match of allMatches;let i = index">
                   <div class="card card-stats">
-                      <div class="card-header card-header-warning card-header-icon">
+                      <div class="card-header card-header-info card-header-icon">
                           <div class="card-icon">
-                              <i class="material-icons">content_copy</i>
+                              <!-- <i class="material-icons">content_copy</i>
+                              <i class="material-icons">content_copy</i> -->
+                              <!-- <div class="row">
+                                <img src={{match.homeTeam.logouUrl()}} class="logo  col-6"/>
+                                <img src={{match.awayTeam.logouUrl()}} class="logo col-6"/>
+                              </div> -->
+                              <h5 >Match #{{match.matchNumber}}
+                              <small>{{match.date | date: 'dd/MM'}}</small></h5>
                           </div>
-                          <p class="card-category">Match #{{match.matchNumber}}</p>
-                          <h5 class="card-title">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
-                              <small>{{match.date | date: 'dd/MM'}}</small>
-                          </h5>
+                          
                           <!-- <p class="card-category">Match #{{i}}</p>
                           <h5 class="card-title">ARG - GER
                               <small>Thu, 14/06</small>
-                          </h5> -->
+                          </h5>
+                        <p class="card-category">Match #{{match.matchNumber}}</p>
+                            <h5 class="card-title">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
+                                <small>{{match.date | date: 'dd/MM'}}</small>
+                            </h5> -->
+                      </div>
+                      <div class="card-body">
+                        <!-- <h5 >{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}</h5> -->
+                        <div class="row justify-content-md-center h-100">
+                            <!-- <img src={{match.homeTeam.logouUrl()}} class="logo col-3 border"/> -->
+                            <div class="logo col-3">
+                                <img src={{match.homeTeam.logouUrl()}} class=" shadow rounded"/>
+                            </div>
+                            <h5 class="col-5 text-center match-title">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}</h5>
+                            <div class="logo col-3">
+                                <img src={{match.awayTeam.logouUrl()}} class=" shadow rounded"/>
+                            </div>
+                        </div>
                       </div>
                       <div class="card-footer">
                           <div class="stats" *ngIf="!user.isLoggedIn()">
@@ -23,8 +56,8 @@
                               <a >Login to BET</a>
                           </div>
                           <div class="stats" *ngIf="user.isLoggedIn()">
-                              <i class="material-icons text-danger">add</i>
-                              <a (click)="openModal(template, match)">Add your BET</a>
+                              <!-- <i class="material-icons text-success">add</i> -->
+                              <a class="btn btn-white btn-round" (click)="openModal(template, match)">Add your BET</a>
                           </div>
                       </div>
                   </div>

@@ -6,22 +6,26 @@
         </p>
     </div>
     <div class="card-body">
-        <span *ngIf="allMatches.length == 0">You don't have any bets on upcoming matches</span>
-        <table class="table" *ngIf="allMatches.length > 0">
+        <span *ngIf="addedBets.length == 0">You don't have any bets on upcoming matches</span>
+        <table class="table" *ngIf="addedBets.length > 0">
             <thead class="text-primary">
-                <th>ID</th>
-                <th>Total Bets</th>
-                <th class="text-right">Actions</th>
+                <th class="text-center">#</th>
+                <th class="text-center">Match</th>
+                <th class="text-center">Date</th>
+                <th class="text-center">Total Bets</th>
+                <th class="text-right"></th>
             </thead>
             <tbody>
-                <tr *ngFor="let match of allMatches">
-                    <td>Match #{{match.matchNumber}}</td>
-                    <td>{{match.totalBets()}}</td>
+                <tr *ngFor="let match of addedBets">
+                    <td class="text-center">#{{match.matchNumber}}</td>
+                    <td class="text-center">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}</td>
+                    <td class="text-center">{{match.date | date: 'dd/MM'}}</td>
+                    <td class="text-center">{{match.totalBets()}}</td>
                     <td class="td-actions text-right">
-                        <button mat-raised-button type="button" matTooltip="Edit Task" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                        <button mat-raised-button (click)="openModal(template, match)" type="button" matTooltip="Edit Task" class="btn btn-primary btn-link btn-sm btn-just-icon">
                             <i class="material-icons">edit</i>
                         </button>
-                        <button mat-raised-button type="button" matTooltip="Remove" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                        <button mat-raised-button (click)="deleteBetOfMatch(match)" type="button" matTooltip="Remove" class="btn btn-danger btn-link btn-sm btn-just-icon">
                             <i class="material-icons">close</i>
                         </button>
                     </td>
@@ -30,3 +34,6 @@
         </table>
     </div>
 </div>
+<ng-template #template >
+    <app-add-bet [match]="selectedMatch" (closePopup)="closeModalPopup()"></app-add-bet>
+</ng-template>
