@@ -65,4 +65,24 @@ export class BaseService {
     };
     return this.httpClient.post(finalUrl, params, httpOptions);
   }
+
+  updateUserProfile() {
+    if (this.user.isLoggedIn()) {
+      const url = 'users/profile';
+      this.getData(url).subscribe(
+        res => {
+          console.log(res);
+          const responseStatus = res['status'];
+          if (responseStatus === SUCCESS_STATUS) {
+            const user = res['user'];
+            this.user.points = user['total_points'];
+            this.localStorage.setItem('user', this.user).subscribe(() => {});
+          }
+        },
+        err => {
+
+        }
+      )
+    }
+  }
 }

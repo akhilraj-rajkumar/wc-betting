@@ -47,10 +47,11 @@ export class MatchListComponent implements OnInit, OnDestroy {
     this.subscription.add(this.matchesStorage.subscribe(state => {
       this.allMatches = state;
     }));
+    this.matchesService.fetchUpComingMatches();
   }
 
   ngOnInit() {
-    this.matchesService.fetchUpComingMatches();
+    
   }
 
   ngOnDestroy() {

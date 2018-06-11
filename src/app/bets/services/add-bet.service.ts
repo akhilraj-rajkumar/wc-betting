@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { BaseService, SUCCESS_STATUS, FAILURE_STATUS } from '@app/core';
 import { MatchModel, ErrorModel } from '@app/models';
 import { BetAddedSuccessAction, BetAddedFailedAction, MatchBetsListedAction } from '@app/actions';
-import { getBetMatchesList } from '@app/reducers';
+import { getBetMatchesList, getUpcomingMatchesList } from '@app/reducers';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,17 @@ export class AddBetService extends BaseService {
   addedBets: MatchModel[] = [];
   betsStore: Observable<MatchModel[]>;
 
+  matchesStorage: Observable<MatchModel[]>;
+  allMatches: MatchModel[] = [];
+
   addBet(match: MatchModel, pointDiff: number) {
     this.betsStore = this.store.select(getBetMatchesList);
     this.subscription.add(this.betsStore.subscribe(state => {
         this.addedBets = state;
+    }));
+    this.matchesStorage = this.store.select(getUpcomingMatchesList);
+    this.subscription.add(this.matchesStorage.subscribe(state => {
+      this.allMatches = state;
     }));
     const url = 'match/bid';
     const params = {
@@ -35,18 +42,9 @@ export class AddBetService extends BaseService {
           this.user.points = this.user.points - pointDiff;
           this.localStorage.setItem('user', this.user).subscribe(() => {});
           this.store.dispatch(new BetAddedSuccessAction(match));
-          if (this.addedBets) {
-            const filtered = this.addedBets.filter( item => item.id === match.id);
-            filtered.forEach(element => {
-              element.updatePointsFromCopy(match);
-            });
-            if (filtered.length === 0) {
-              this.addedBets.push(match);
-            }
-            this.addedBets.sort((a, b) => a.id > b.id ? 1 : 0);
-            // let cloned = this.addedBets.map(x => Object.assign({}, x));
-            this.store.dispatch(new MatchBetsListedAction(this.addedBets));
-          }
+          this.updateBetList(match);
+          this.updateAllMatchList(match);
+          this.updateUserProfile();
         } else {
           const errorMessage = res['message'];
           const error = new ErrorModel();
@@ -65,11 +63,44 @@ export class AddBetService extends BaseService {
     );
   }
 
+  updateBetList(match: MatchModel) {
+    if (this.addedBets) {
+      const filtered = this.addedBets.filter( item => item.id === match.id);
+      filtered.forEach(element => {
+        element.updatePointsFromCopy(match);
+      });
+      if (filtered.length === 0) {
+        this.addedBets.push(match);
+      }
+      if (match.totalBets() === 0) {
+        const index = this.addedBets.findIndex(item => item.id === match.id);
+        this.addedBets.splice(index, 1);
+      }
+      this.addedBets.sort((a, b) => a.id > b.id ? 1 : 0);
+      // let cloned = this.addedBets.map(x => Object.assign({}, x));
+      this.store.dispatch(new MatchBetsListedAction(this.addedBets));
+    }
+  }
+
+  updateAllMatchList(match: MatchModel) {
+    const filtered = this.allMatches.filter( item => item.id === match.id);
+      filtered.forEach(element => {
+        element.updatePointsFromCopy(match);
+      });
+  }
+
   deleteAllBetOfMatch(match: MatchModel) {
-    this.user.points = this.user.points + match.totalBets();
-    this.localStorage.setItem('user', this.user).subscribe(() => {});
-    const index = this.addedBets.findIndex(item => item.id === match.id);
-    this.addedBets.splice(index, 1);
-    this.store.dispatch(new MatchBetsListedAction(this.addedBets));
+    const pointDiff = match.totalBets();
+    match.clearBets();
+    this.addBet(match, -pointDiff);
+    // this.user.points = this.user.points + match.totalBets();
+    // this.localStorage.setItem('user', this.user).subscribe(() => {});
+    // const filtered = this.allMatches.filter( item => item.id === match.id);
+    // filtered.forEach(element => {
+    //   element.clearBets();
+    // });
+    // const index = this.addedBets.findIndex(item => item.id === match.id);
+    // this.addedBets.splice(index, 1);
+    // this.store.dispatch(new MatchBetsListedAction(this.addedBets));
   }
 }

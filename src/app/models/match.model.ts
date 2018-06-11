@@ -35,4 +35,10 @@ export class MatchModel {
         this.awayTemaBets = copy.awayTemaBets;
         this.drawBets = copy.drawBets;
     }
+
+    clearBets() {
+        this.homeTeamBets = 0;
+        this.awayTemaBets = 0;
+        this.drawBets = 0;
+    }
 }
