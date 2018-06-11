@@ -11,9 +11,11 @@ export class BetOptionComponent implements OnInit {
   @Output() valueChange = new EventEmitter();
   @Input() count: number;
   @Input() maxCount: number;
+  @Input() totalBets: number;
 
   constructor() {
     this.count = 0;
+    this.totalBets = 0;
   }
 
   ngOnInit() {
