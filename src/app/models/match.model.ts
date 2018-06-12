@@ -14,6 +14,7 @@ export class MatchModel {
     awayTemaBets: number = 0;
     drawBets: number = 0;
     result: any = null;
+    resultTeamId = 0;
 
     deserialize(input): MatchModel {
         this.id = input.id;
@@ -82,9 +83,9 @@ export class MatchModel {
     getLoseToolTip() {
         if (this.result) {
             if (this.result < 0) {
-                return 'You lose ' + this.result + ' potint(s)';
+                return 'You lost ' + this.result + ' potint(s)';
             } else {
-                return 'You lose 0 points';
+                return 'You lost 0 points';
             }
         } else {
             return 'Result not published';

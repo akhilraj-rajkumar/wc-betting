@@ -17,8 +17,8 @@ export const FAILURE_STATUS = 1;
 })
 export class BaseService {
 
-  // private baseUrl = 'http://localhost:8000/';
-  private baseUrl: string = 'http://10.6.13.18:8000/'; // akhilraj's ip
+  private baseUrl = 'http://localhost:8000/';
+  // private baseUrl: string = 'http://10.6.13.18:8000/'; // akhilraj's ip
   // private baseUrl: string = 'http://10.6.9.34:8000/'; // siraj's ip
   userStore: Observable<UserModel>;
   user: UserModel;
@@ -82,7 +82,7 @@ export class BaseService {
         err => {
 
         }
-      )
+      );
     }
   }
 }

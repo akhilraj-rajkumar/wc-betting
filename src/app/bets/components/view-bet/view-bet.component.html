@@ -2,25 +2,93 @@
   <div class="card-header card-header-success">
     <h3 class="card-title">VIEW YOUR BETS</h3>
     <p class="card-category">
+      {{subTitle}}
     </p>
   </div>
   <div class="card-body">
     <div class="row">
       <div class="col-9">
           <p class="card-category">Match #{{match.matchNumber}}</p>
-          <h5 class="card-title">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
+          <h5 class="card-title" tooltip="{{match.homeTeam.name}} - {{match.awayTeam.name}}">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
             <small>on {{match.date | date: 'dd/MM'}}</small>
           </h5>
       </div>
-      <div class="col-3 text-right">
+      <!-- <div class="col-3 text-right">
           <p class="card-category">Yout total bet(s)</p>
           <h5 class="card-title text-success">{{match.totalBets()}}</h5>
-      </div>
+      </div> -->
     </div>
+
+    <table class="table">
+      <thead class="text-success">
+          <th class="text-center">Bet Option</th>
+          <th class="text-center">Total Bet(s)</th>
+          <th class="text-center">Your Bet(s)</th>
+          <th class="text-center">Status</th>
+      </thead>
+      <tbody>
+          <tr >
+              <td class="text-center">{{match.homeTeam.shortName}} WINS</td>
+              <td class="text-center">{{matchBet.homeBets}}</td>
+              <td class="text-center">{{match.homeTeamBets}}</td>
+              <td class="td-actions text-center">
+                <button *ngIf="match.resultTeamId == match.homeTeam.id" mat-raised-button type="button" tooltip="Bet won" class="btn btn-success btn-link btn-sm btn-just-icon">
+                    <i class="material-icons">done</i>
+                </button>
+                <button *ngIf="match.resultTeamId != match.homeTeam.id" mat-raised-button type="button" tooltip="Bet failed" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                  <i class="material-icons">close</i>
+              </button>
+            </td>
+          </tr>
+          <tr >
+            <td class="text-center">{{match.awayTeam.shortName}} WINS</td>
+            <td class="text-center">{{matchBet.awayBets}}</td>
+            <td class="text-center">{{match.awayTemaBets}}</td>
+            <td class="td-actions text-center">
+              <button *ngIf="match.resultTeamId == match.awayTeam.id" mat-raised-button type="button" tooltip="Bet won" class="btn btn-success btn-link btn-sm btn-just-icon">
+                <i class="material-icons">done</i>
+            </button>
+            <button *ngIf="match.resultTeamId != match.awayTeam.id" mat-raised-button type="button" tooltip="Bet failed" class="btn btn-danger btn-link btn-sm btn-just-icon">
+              <i class="material-icons">close</i>
+          </button>
+          </td>
+        </tr>
+        <tr >
+          <td class="text-center">MATCH DRAWS</td>
+          <td class="text-center">{{matchBet.drawBets}}</td>
+          <td class="text-center">{{match.drawBets}}</td>
+          <td class="td-actions text-center">
+            <button *ngIf="match.resultTeamId == 2" mat-raised-button type="button" tooltip="Bet won" class="btn btn-success btn-link btn-sm btn-just-icon">
+              <i class="material-icons">done</i>
+          </button>
+          <button *ngIf="match.resultTeamId != 2" mat-raised-button type="button" tooltip="Bet failed" class="btn btn-danger btn-link btn-sm btn-just-icon">
+            <i class="material-icons">close</i>
+        </button>
+        </td>
+      </tr>
           
-            <app-view-bet-option [optionName]="match.homeTeam.shortName + ' WINS'" [count]="match.homeTeamBets" [totalBets]="matchBet.homeBets"></app-view-bet-option>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td></td>
+          <td class="text-center text-success" tooltip="Total bets of this match">
+              <button mat-raised-button type="button" class="btn btn-success btn-link btn-sm border">
+                  {{matchBet.totalBets()}}
+              </button>
+          </td>
+          <td class="text-center text-success" tooltip="Your total bets">
+              <button mat-raised-button type="button" class="btn btn-success btn-link btn-sm border">
+                  {{match.totalBets()}}
+              </button>
+          </td>
+          <td class="text-center"></td>
+        </tr>
+      </tfoot>
+  </table>
+          
+            <!-- <app-view-bet-option [optionName]="match.homeTeam.shortName + ' WINS'" [count]="match.homeTeamBets" [totalBets]="matchBet.homeBets"></app-view-bet-option>
             <app-view-bet-option [optionName]="match.awayTeam.shortName + ' WINS'" [count]="match.awayTemaBets" [totalBets]="matchBet.awayBets"></app-view-bet-option>
-            <app-view-bet-option [optionName]="'MATCH DRAW'" [count]="match.drawBets" [totalBets]="matchBet.drawBets"></app-view-bet-option>
+            <app-view-bet-option [optionName]="'MATCH DRAW'" [count]="match.drawBets" [totalBets]="matchBet.drawBets"></app-view-bet-option> -->
   </div>
   <div class="card-footer">
       <span class="col-6"></span>

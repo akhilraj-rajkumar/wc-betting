@@ -11,7 +11,7 @@
     </div>
 </div> -->
 <owl-carousel
-              [options]="{items: 4, dots: true, navigation: false}"
+              [options]="options"
               [items]="allMatches"
               [carouselClasses]="['owl-theme', 'row', 'sliding']">
               <div class="item items" *ngFor="let match of allMatches;let i = index">

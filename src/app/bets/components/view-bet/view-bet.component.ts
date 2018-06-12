@@ -21,6 +21,8 @@ export class ViewBetComponent implements OnInit, OnDestroy, OnChanges {
   matchBetsStore: Observable<BetModel>;
   matchBet: BetModel = new BetModel();
 
+  subTitle = '';
+
   constructor(
     private store: Store<IAppState>,
     private matchBetsService: MatchBetsService) {
@@ -38,6 +40,14 @@ export class ViewBetComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.match.currentValue) {
       this.matchBetsService.getDetailsOfMatch(changes.match.currentValue);
+      const match: MatchModel = changes.match.currentValue;
+      if (match.result) {
+        if (match.result > 0) {
+          this.subTitle = 'You won ' + match.result + ' point(s) in this match';
+        } else if (match.result < 0) {
+          this.subTitle = 'You lost ' + Math.abs(match.result) + ' point(s) in this match';
+        }
+      }
     }
   }
 

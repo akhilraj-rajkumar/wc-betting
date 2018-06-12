@@ -32,6 +32,7 @@ export class MatchListComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   modalRef: BsModalRef;
+  options: any;
 
   constructor(
     private store: Store<IAppState>,
@@ -51,7 +52,40 @@ export class MatchListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    
+    this.options = {
+      items: 3,
+      dots: true,
+      navigation: false,
+      responsive: {
+        0: {
+          items: 1,
+          nav: true
+        },
+        600: {
+          items: 2,
+          nav: false
+        },
+        768: {
+          items: 2,
+          nav: false
+        },
+        1070: {
+          items: 3,
+          nav: true,
+          loop: false
+        },
+        1360: {
+          items: 4,
+          nav: true,
+          loop: false
+        },
+        1600: {
+          items: 5,
+          nav: true,
+          loop: false
+        }
+      }
+    };
   }
 
   ngOnDestroy() {

@@ -11,6 +11,7 @@ a label {
     height: 30px;
     padding-right: 5px;
     padding-left: 5px;
+    max-width: 50px;
 }
 
 .logo img {

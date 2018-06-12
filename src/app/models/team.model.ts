@@ -15,6 +15,7 @@ export class TeamModel {
     }
 
     logouUrl() {
-        return 'http://10.6.13.18:8000/' + this.logo;
+        // return 'http://10.6.13.18:8000/' + this.logo;
+        return 'http://localhost:8000/' + this.logo;
     }
 }

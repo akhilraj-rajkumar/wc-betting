@@ -11,4 +11,8 @@ export class BetModel {
         this.matchId = input['match']['id'];
         return this;
     }
+
+    totalBets() {
+        return this.homeBets + this.awayBets + this.drawBets;
+    }
 }
