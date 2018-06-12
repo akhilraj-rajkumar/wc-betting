@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { MatchModel, ErrorModel } from '@app/models';
 import { BaseService, SUCCESS_STATUS, FAILURE_STATUS } from '@app/core';
-import { BetAddedFailedAction, MatchBetsListedAction } from '@app/actions';
+import { BetAddedFailedAction, MatchBetsListedAction, CompletedMatchBetsListedAction } from '@app/actions';
 import { getUpcomingMatchesList } from '@app/reducers';
 
 @Injectable({
@@ -26,6 +26,7 @@ export class FutureBetsService extends BaseService {
         const responseStatus = res['status'];
         if (responseStatus === SUCCESS_STATUS) {
           const futureBetMatchList = [];
+          const completedBetMatchList = [];
           const allBets = res['user_bids_matches'];
           const futureBets = allBets['up_coming'];
           futureBets.forEach(element => {
@@ -42,16 +43,37 @@ export class FutureBetsService extends BaseService {
               filteredMatch.drawBets = drawBets;
               const copy = Object.assign(new MatchModel(), filteredMatch);
               if (copy.totalBets() > 0) {
-                futureBetMatchList.push(copy);
+                if (element['points_gained']) {
+                  copy.result = element['points_gained'];
+                  completedBetMatchList.push(copy);
+                } else {
+                  futureBetMatchList.push(copy);
+                }
               }
             });
-            // filtered.forEach(matchObj => {
-            //   const copy = Object.assign(new MatchModel(), matchObj);
-            //   futureBetMatchList.push(copy);
-            // });
           });
           futureBetMatchList.sort((a, b) => a.id > b.id ? 1 : 0);
           this.store.dispatch(new MatchBetsListedAction(futureBetMatchList));
+          const completedBets = allBets['old_matches'];
+          completedBets.forEach(element => {
+            const match = element['match'];
+            const bids = element['bids'];
+            const homeBets = bids['home']['number_of_bids'];
+            const awayBets = bids['away']['number_of_bids'];
+            const drawBets = bids['draw']['number_of_bids'];
+            match['home_team'] = bids['home']['team'];
+            match['away_team'] = bids['away']['team'];
+            const matchObj = new MatchModel().deserialize(match);
+            matchObj.homeTeamBets = homeBets;
+            matchObj.awayTemaBets = awayBets;
+            matchObj.drawBets = drawBets;
+            if (element['points_gained']) {
+              matchObj.result = element['points_gained'];
+            }
+            completedBetMatchList.push(matchObj);
+          });
+          completedBetMatchList.sort((a, b) => a.id > b.id ? 1 : 0);
+          this.store.dispatch(new CompletedMatchBetsListedAction(completedBetMatchList));
         } else {
           const errorMessage = res['message'];
           const error = new ErrorModel();

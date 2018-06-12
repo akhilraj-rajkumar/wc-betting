@@ -22,8 +22,8 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item dropdown"  *ngIf="user.isLoggedIn()">
-                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li class="nav-item dropdown"  *ngIf="user.isLoggedIn()"  tooltip="You have {{user.points}} points remaining to bet" placement="bottom">
+                    <a class="nav-link" href="#" id="navbarDropdownMenuLink"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">confirmation_number</i>
                         <span class="notification">{{user.points}}</span>
                         <p>

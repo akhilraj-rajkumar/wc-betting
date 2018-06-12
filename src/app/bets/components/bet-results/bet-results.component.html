@@ -6,28 +6,36 @@
         </p>
     </div>
     <div class="card-body">
-      <span>There are no results available</span>
-        <!-- <table class="table">
+      <!-- <span>There are no results available</span> -->
+        <table class="table">
             <thead class="text-warning">
-                <th>ID</th>
-                
-                <th class="text-right">Result</th>
+                <th class="text-center">#</th>
+                <th class="text-center">Match</th>
+                <th class="text-center">Date</th>
+                <th class="text-center" tooltip="Your total bets on match">T</th>
+                <th class="text-center" tooltip="Total poinst won on match">W</th>
+                <th class="text-center" tooltip="Total poinst lost on match">L</th>
+                <th class="text-right"></th>
             </thead>
             <tbody>
-                <tr>
-                    <td>Match #1</td>
+                <tr *ngFor="let match of addedBets">
+                    <td class="text-center">#{{match.matchNumber}}</td>
+                    <td class="text-center">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}</td>
+                    <td class="text-center">{{match.date | date: 'dd/MM'}}</td>
+                    <td class="text-center">{{match.totalBets()}}</td>
+                    <td class="text-center" tooltip="{{match.getWinToolTip()}}">{{match.getWinPoints()}}</td>
+                    <td class="text-center" tooltip="{{match.getLoseToolTip()}}">{{match.getLosePoints()}}</td>
                     <td class="td-actions text-right">
-                        result 1
+                        <button mat-raised-button (click)="openModal(template, match)" type="button" tooltip="View Result" class="btn btn-warning btn-link btn-sm btn-just-icon">
+                            <i class="material-icons">visibility</i>
+                        </button>
                     </td>
                 </tr>
-                <tr>
-                    
-                    <td>Match #2</td>
-                    <td class="td-actions text-right">
-                        result 2
-                    </td>
-                </tr>
+                
             </tbody>
-        </table> -->
+        </table>
     </div>
 </div>
+<ng-template #template >
+    <app-view-bet [match]="selectedMatch" (closePopup)="closeModalPopup()"></app-view-bet>
+</ng-template>

@@ -13,6 +13,7 @@ export class MatchModel {
     homeTeamBets: number = 0;
     awayTemaBets: number = 0;
     drawBets: number = 0;
+    result: any = null;
 
     deserialize(input): MatchModel {
         this.id = input.id;
@@ -40,5 +41,53 @@ export class MatchModel {
         this.homeTeamBets = 0;
         this.awayTemaBets = 0;
         this.drawBets = 0;
+    }
+
+    getWinPoints() {
+        if (this.result) {
+            if (this.result > 0) {
+                return this.result;
+            } else {
+                return 0;
+            }
+        } else {
+            return '-';
+        }
+    }
+
+    getLosePoints() {
+        if (this.result) {
+            if (this.result < 0) {
+                return this.result;
+            } else {
+                return 0;
+            }
+        } else {
+            return '-';
+        }
+    }
+
+    getWinToolTip() {
+        if (this.result) {
+            if (this.result > 0) {
+                return 'You won ' + this.result + ' potint(s)';
+            } else {
+                return 'You won 0 points';
+            }
+        } else {
+            return 'Result not published';
+        }
+    }
+
+    getLoseToolTip() {
+        if (this.result) {
+            if (this.result < 0) {
+                return 'You lose ' + this.result + ' potint(s)';
+            } else {
+                return 'You lose 0 points';
+            }
+        } else {
+            return 'Result not published';
+        }
     }
 }

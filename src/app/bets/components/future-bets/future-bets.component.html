@@ -22,10 +22,10 @@
                     <td class="text-center">{{match.date | date: 'dd/MM'}}</td>
                     <td class="text-center">{{match.totalBets()}}</td>
                     <td class="td-actions text-right">
-                        <button mat-raised-button (click)="openModal(template, match)" type="button" matTooltip="Edit Task" class="btn btn-primary btn-link btn-sm btn-just-icon">
+                        <button mat-raised-button (click)="openModal(template, match)" type="button" tooltip="View/Edit Bet" class="btn btn-primary btn-link btn-sm btn-just-icon">
                             <i class="material-icons">edit</i>
                         </button>
-                        <button mat-raised-button (click)="deleteBetOfMatch(match)" type="button" matTooltip="Remove" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                        <button mat-raised-button (click)="deleteBetOfMatch(match)" type="button" tooltip="Remove" class="btn btn-danger btn-link btn-sm btn-just-icon">
                             <i class="material-icons">close</i>
                         </button>
                     </td>

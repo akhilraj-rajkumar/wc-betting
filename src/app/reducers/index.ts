@@ -6,7 +6,8 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { userReducer, IUserState, getUserEntity } from './user.reducer';
 import { matchReducer, IMatchState, 
     getMatchesEntity, getBetSuccessEntity,
-    getBetFailedEntity, getBetsEntity, getMatchBetsEntity } from './match.reducer';
+    getBetFailedEntity, getBetsEntity,
+    getMatchBetsEntity, getCompletedMatchBetsEntity } from './match.reducer';
 
 import { environment } from '../../environments/environment';
 
@@ -48,5 +49,6 @@ export const getBetSuccess = createSelector(getMatchState, getBetSuccessEntity);
 export const getBetFailed = createSelector(getMatchState, getBetFailedEntity);
 export const getBetMatchesList = createSelector(getMatchState, getBetsEntity);
 export const getMatchAllBets = createSelector(getMatchState, getMatchBetsEntity);
+export const getCompletedMatchesBetList = createSelector(getMatchState, getCompletedMatchBetsEntity);
 
 
