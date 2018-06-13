@@ -23,15 +23,15 @@
                     <td class="text-center">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}</td>
                     <td class="text-center">{{match.date | date: 'dd/MM'}}</td>
                     <td class="text-center">{{match.totalBets()}}</td>
-                    <td class="text-center" tooltip="{{match.getWinToolTip()}}">{{match.getWinPoints()}}</td>
-                    <td class="text-center" tooltip="{{match.getLoseToolTip()}}">{{match.getLosePoints()}}</td>
+                    <td class="text-center" tooltip="{{match.getWinToolTip()}}">{{match.getWinPoints() | number : '1.2-2'}}</td>
+                    <td class="text-center" tooltip="{{match.getLoseToolTip()}}">{{match.getLosePoints() | number : '1.2-2'}}</td>
                     <td class="td-actions text-right">
                         <button mat-raised-button (click)="openModal(template, match)" type="button" tooltip="View Result" class="btn btn-warning btn-link btn-sm btn-just-icon">
                             <i class="material-icons">visibility</i>
                         </button>
                     </td>
                 </tr>
-                
+
             </tbody>
         </table>
     </div>

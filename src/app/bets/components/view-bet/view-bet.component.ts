@@ -41,13 +41,13 @@ export class ViewBetComponent implements OnInit, OnDestroy, OnChanges {
     if (changes.match.currentValue) {
       this.matchBetsService.getDetailsOfMatch(changes.match.currentValue);
       const match: MatchModel = changes.match.currentValue;
-      if (match.result) {
-        if (match.result > 0) {
-          this.subTitle = 'You won ' + match.result + ' point(s) in this match';
-        } else if (match.result < 0) {
-          this.subTitle = 'You lost ' + Math.abs(match.result) + ' point(s) in this match';
+      if (match.result && match.resultLost > 0) {
+        this.subTitle = 'You won '  + match.result.toFixed(2) +' point(s) and lost ' + match.resultLost.toFixed(2) + ' point(s)'
+      } else if (match.result > 0) {
+          this.subTitle = 'You won ' + match.result.toFixed(2) + ' point(s) in this match';
+        } else if (match.resultLost > 0) {
+          this.subTitle = 'You lost ' + match.resultLost.toFixed(2) + ' point(s) in this match';
         }
-      }
     }
   }
 

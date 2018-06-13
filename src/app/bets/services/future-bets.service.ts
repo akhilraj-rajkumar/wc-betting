@@ -43,7 +43,7 @@ export class FutureBetsService extends BaseService {
               filteredMatch.drawBets = drawBets;
               const copy = Object.assign(new MatchModel(), filteredMatch);
               if (copy.totalBets() > 0) {
-                if (element['points_gained']) {
+                if ('points_gained' in element) {
                   copy.result = element['points_gained'];
                   copy.resultTeamId = element['result_team_id'];
                   copy.resultLost = element['points_lost'];
@@ -69,7 +69,7 @@ export class FutureBetsService extends BaseService {
             matchObj.homeTeamBets = homeBets;
             matchObj.awayTemaBets = awayBets;
             matchObj.drawBets = drawBets;
-            if (element['points_gained']) {
+            if ('points_gained' in element) {
               matchObj.result = element['points_gained'];
               matchObj.resultTeamId = element['result_team_id'];
               matchObj.resultLost = element['points_lost'];

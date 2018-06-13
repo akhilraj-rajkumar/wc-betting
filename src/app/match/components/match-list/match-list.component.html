@@ -25,9 +25,11 @@
                                 <img src={{match.awayTeam.logouUrl()}} class="logo col-6"/>
                               </div> -->
                               <h5 >Match #{{match.matchNumber}}
-                              <small>{{match.date | date: 'dd/MM'}}</small></h5>
+                              <small>{{match.date | date: 'dd/MM'}}</small>
+                              <small>-{{match.date | date: 'HH:mm'}}</small>
+                              </h5>
                           </div>
-                          
+
                           <!-- <p class="card-category">Match #{{i}}</p>
                           <h5 class="card-title">ARG - GER
                               <small>Thu, 14/06</small>

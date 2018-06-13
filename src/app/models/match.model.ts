@@ -46,48 +46,32 @@ export class MatchModel {
     }
 
     getWinPoints() {
-        if (this.result) {
-            if (this.result > 0) {
-                return this.result;
-            } else {
-                return 0;
-            }
+        if (this.result !== null) {
+             return this.result;
         } else {
             return '-';
         }
     }
 
     getLosePoints() {
-        if (this.resultLost) {
-            if (this.resultLost > 0) {
-                return this.resultLost;
-            } else {
-                return 0;
-            }
+        if (this.resultLost !== null) {
+            return this.resultLost;
         } else {
             return '-';
         }
     }
 
     getWinToolTip() {
-        if (this.result) {
-            if (this.result > 0) {
-                return 'You won ' + this.result + ' potint(s)';
-            } else {
-                return 'You won 0 points';
-            }
+        if (this.result !== null) {
+             return 'You won ' + this.result.toFixed(2) + ' potint(s)';
         } else {
             return 'Result not published';
         }
     }
 
     getLoseToolTip() {
-        if (this.resultLost) {
-            if (this.resultLost > 0) {
-                return 'You lost ' + this.result + ' potint(s)';
-            } else {
-                return 'You lost 0 points';
-            }
+        if (this.resultLost !== null) {
+             return 'You lost ' + this.resultLost.toFixed(2) + ' potint(s)';
         } else {
             return 'Result not published';
         }
