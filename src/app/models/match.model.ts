@@ -2,7 +2,7 @@ import { TeamModel } from './team.model';
 import { VenueModel } from './venue.model';
 
 export class MatchModel {
-    id: string;
+    id: number;
     matchNumber: string;
     round: string;
     group: string;
@@ -90,5 +90,12 @@ export class MatchModel {
         } else {
             return 'Result not published';
         }
+    }
+
+    canBet() {
+        if (this.homeTeam.id == 1 || this.awayTeam.id == 1) {
+            return false;
+        }
+        return true;
     }
 }

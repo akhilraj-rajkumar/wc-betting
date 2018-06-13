@@ -1,7 +1,7 @@
 export class VenueModel {
     name: string;
     city: string;
-    id: string;
+    id: number;
 
     deserialize(input): VenueModel {
         this.name = input.venue_name;

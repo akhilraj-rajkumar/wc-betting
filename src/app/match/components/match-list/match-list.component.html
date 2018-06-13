@@ -55,7 +55,7 @@
                               <i class="material-icons text-danger">warning</i>
                               <a >Login to BET</a>
                           </div>
-                          <div class="stats" *ngIf="user.isLoggedIn()">
+                          <div class="stats" *ngIf="user.isLoggedIn() && match.canBet()">
                               <!-- <i class="material-icons text-success">add</i> -->
                               <a class="btn btn-white btn-round" (click)="openModal(template, match)">Add your BET</a>
                           </div>

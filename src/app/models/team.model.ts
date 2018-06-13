@@ -1,6 +1,6 @@
 export class TeamModel {
-    id: string;
-    name: string;
+    id: number;
+    name: number;
     shortName: string;
     color: string;
     logo: string;
