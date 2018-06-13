@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { OwlModule } from 'ngx-owl-carousel';
 import { LoadingModule } from 'ngx-loading';
+import { TooltipModule } from 'ngx-bootstrap';
 
 import { CoreModule } from '@app/core';
 import { BetsModule } from '@app/bets';
@@ -18,7 +19,8 @@ import { MatchListService } from './services/match-list.service';
     OwlModule,
     CoreModule,
     LoadingModule,
-    BetsModule
+    BetsModule,
+    TooltipModule.forRoot()
   ],
   providers: [MatchListService],
   declarations: [MatchListComponent],
