@@ -17,7 +17,7 @@ export class AddControlComponent implements OnInit {
   }
 
   increment() {
-    if (this.maxCount > 0) {
+    if (this.maxCount >= 1) {
       this.count = this.count + 1;
       this.valueChange.emit(this.count);
     }
