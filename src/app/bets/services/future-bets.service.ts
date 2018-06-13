@@ -46,6 +46,7 @@ export class FutureBetsService extends BaseService {
                 if (element['points_gained']) {
                   copy.result = element['points_gained'];
                   copy.resultTeamId = element['result_team_id'];
+                  copy.resultLost = element['points_lost'];
                   completedBetMatchList.push(copy);
                 } else {
                   futureBetMatchList.push(copy);
@@ -71,6 +72,7 @@ export class FutureBetsService extends BaseService {
             if (element['points_gained']) {
               matchObj.result = element['points_gained'];
               matchObj.resultTeamId = element['result_team_id'];
+              matchObj.resultLost = element['points_lost'];
             }
             completedBetMatchList.push(matchObj);
           });
