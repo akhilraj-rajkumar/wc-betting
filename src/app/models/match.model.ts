@@ -60,6 +60,28 @@ export class MatchModel {
             return '-';
         }
     }
+    getProfiltOrLosePoints() {
+        if (this.result !== null && this.resultLost !== null) {
+            return this.result - this.resultLost;
+        } else {
+            return '-';
+        }
+    }
+
+    getProfiltOrLoseTooltip() {
+        if (this.result !== null && this.resultLost !== null) {
+            const profit = this.result - this.resultLost;
+            if (profit > 0) {
+                return 'Your total profit on this match is ' + profit.toFixed(2) + ' point(s)';
+            } else if (profit < 0) {
+                return 'Your total loss on this match is ' + profit.toFixed(2) + ' point(s)';
+            } else {
+                return 'You have no profit or loss';
+            }
+        } else {
+            return 'Result not published';
+        }
+    }
 
     getWinToolTip() {
         if (this.result !== null) {

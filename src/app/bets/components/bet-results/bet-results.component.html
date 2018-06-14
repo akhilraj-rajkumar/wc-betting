@@ -15,6 +15,7 @@
                 <th class="text-center" tooltip="Your total bets on match">T</th>
                 <th class="text-center" tooltip="Total poinst won on match">W</th>
                 <th class="text-center" tooltip="Total poinst lost on match">L</th>
+                <th class="text-center" tooltip="Total profit/loss on match">P/L</th>
                 <th class="text-right"></th>
             </thead>
             <tbody>
@@ -25,6 +26,8 @@
                     <td class="text-center" tooltip="{{match.getTotalPointTootlTip()}}">{{match.totalBets()}}</td>
                     <td class="text-center" tooltip="{{match.getWinToolTip()}}">{{isNumber(match.getWinPoints()) ? (match.getWinPoints() | number : '1.2-2') : match.getWinPoints()}}</td>
                     <td class="text-center" tooltip="{{match.getLoseToolTip()}}">{{isNumber(match.getWinPoints()) ? (match.getLosePoints() | number : '1.2-2') : match.getLosePoints()}}</td>
+                    <td class="text-center" tooltip="{{match.getProfiltOrLoseTooltip()}}">{{isNumber(match.getProfiltOrLosePoints()) ? (match.getProfiltOrLosePoints() | number : '1.2-2') : match.getProfiltOrLosePoints()}}</td>
+                    <!-- getProfiltOrLosePoints -->
                     <td class="td-actions text-right">
                         <button mat-raised-button (click)="openModal(template, match)" type="button" tooltip="View Result" class="btn btn-warning btn-link btn-sm btn-just-icon">
                             <i class="material-icons">visibility</i>
