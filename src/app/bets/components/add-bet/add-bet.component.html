@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-9">
           <p class="card-category">Match #{{match.matchNumber}}</p>
-          <h5 class="card-title">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
+          <h5 class="card-title" tooltip="{{match.homeTeam.name}} - {{match.awayTeam.name}}">{{match.homeTeam.shortName}} - {{match.awayTeam.shortName}}
             <small>on {{match.date | date: 'dd/MM'}}</small>
           </h5>
       </div>

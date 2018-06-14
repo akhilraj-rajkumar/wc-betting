@@ -77,6 +77,10 @@ export class MatchModel {
         }
     }
 
+    getTotalPointTootlTip() {
+        return 'You added ' + this.totalBets() + ' points(s)'
+    }
+
     canBet() {
         if (this.homeTeam.id == 1 || this.awayTeam.id == 1) {
             return false;

@@ -49,4 +49,8 @@ export class BetResultsComponent implements OnInit, OnDestroy {
   closeModalPopup() {
     this.modalRef.hide();
   }
+
+  isNumber(o): boolean {
+    return o !== '-';
+  }
 }
