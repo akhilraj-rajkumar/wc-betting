@@ -5,11 +5,35 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h4 class="card-title ">Leaders</h4>
-                        <p class="card-category"> Leaders of the league on the basis of total points earned</p>
+                        <p class="card-category"> Leaders of the league on the basis of average points earned</p>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                          Coming soon...
+                            <table class="table">
+                                <thead class="text-danger">
+                                    <th class="text-center"># Rank</th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Avg. Points</th>
+                                    <th class="text-center" tooltip="Total points gained by user">Total Points</th>
+                                    <!-- <th class="text-center" tooltip="Total profit/loss on match">P/L</th> -->
+                                    <th class="text-right"></th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let leader of leaders; let i = index">
+                                        <td class="text-center">{{i + 1}}</td>
+                                        <td class="text-center">{{leader.name}}</td>
+                                        <td class="text-center">{{leader.avgPoints | number : '1.2-2'}}</td>
+                                        <td class="text-center">{{leader.totalPoints | number : '1.2-2'}}</td>
+                                        <!-- <td class="text-center" tooltip="{{match.getProfiltOrLoseTooltip()}}">{{isNumber(match.getProfiltOrLosePoints()) ? (match.getProfiltOrLosePoints() | number : '1.2-2') : match.getProfiltOrLosePoints()}}</td> -->
+                                        <td class="td-actions text-right">
+                                            <button mat-raised-button (click)="openModal(template, match)" type="button" tooltip="View Result" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                                <i class="material-icons">visibility</i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                    
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

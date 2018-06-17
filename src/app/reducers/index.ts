@@ -3,8 +3,8 @@ import { ActionReducerMap, ActionReducer, MetaReducer } from '@ngrx/store';
 import { combineReducers } from '@ngrx/store';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { userReducer, IUserState, getUserEntity } from './user.reducer';
-import { matchReducer, IMatchState, 
+import { userReducer, IUserState, getUserEntity, getLeadersEntity, getUserProgressEntity } from './user.reducer';
+import { matchReducer, IMatchState,
     getMatchesEntity, getBetSuccessEntity,
     getBetFailedEntity, getBetsEntity,
     getMatchBetsEntity, getCompletedMatchBetsEntity } from './match.reducer';
@@ -12,8 +12,8 @@ import { matchReducer, IMatchState,
 import { environment } from '../../environments/environment';
 
 export interface IAppState {
-    user: IUserState,
-    match: IMatchState
+    user: IUserState;
+    match: IMatchState;
 }
 
 export const reducers: ActionReducerMap<IAppState> = {
@@ -42,6 +42,8 @@ export function logger(reducer: ActionReducer<IAppState>): ActionReducer<IAppSta
 export const getUserState = (state: IAppState) => state.user;
 // export const getUserState = createFeatureSelector<IAppState>('user');
 export const getLoggedInUser = createSelector(getUserState, getUserEntity);
+export const getLeaders = createSelector(getUserState, getLeadersEntity);
+export const getUserPorgress = createSelector(getUserState, getUserProgressEntity);
 
 export const getMatchState = (state: IAppState) => state.match;
 export const getUpcomingMatchesList = createSelector(getMatchState, getMatchesEntity);

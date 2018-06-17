@@ -1,13 +1,13 @@
 export class BetModel {
-    homeBets: number = 0;
-    awayBets: number = 0;
-    drawBets: number = 0;
+    homeBets = 0;
+    awayBets = 0;
+    drawBets = 0;
     matchId: number;
 
     deserialize(input): BetModel {
-        this.homeBets = input['home']['number_of_bids'];
-        this.awayBets = input['away']['number_of_bids'];
-        this.drawBets = input['draw']['number_of_bids'];
+        this.homeBets = input['home']['total_bids'];
+        this.awayBets = input['away']['total_bids'];
+        this.drawBets = input['draw']['total_bids'];
         this.matchId = input['match']['id'];
         return this;
     }

@@ -6,7 +6,7 @@ export const MATCH_BET_ADD_SUCCESS = 'MATCH_BET_ADD_SUCCESS';
 export const MATCH_BET_ADD_FAILED = 'MATCH_BET_ADD_FAILED';
 export const UPDATED_BETS_LIST = 'UPDATED_BETS_LIST';
 export const MATCH_ALL_BETS_LOADED = 'MATCH_ALL_BETS_LOADED';
-export const COMPLETED_BETS_LOADED = 'COMPLETED_BETS_LOADED'
+export const COMPLETED_BETS_LOADED = 'COMPLETED_BETS_LOADED';
 
 export class MatchesListedAction implements Action {
     readonly type = MATCH_LIST_LOADED;
@@ -44,4 +44,7 @@ export class CompletedMatchBetsListedAction implements Action {
     constructor(public payload: MatchModel[]) {}
 }
 
-export type MatchActions = MatchesListedAction | BetAddedSuccessAction | BetAddedFailedAction | MatchBetsListedAction | MatchAllBetsLoadedAction  |CompletedMatchBetsListedAction;
+export type MatchActions = MatchesListedAction
+ | BetAddedSuccessAction | BetAddedFailedAction |
+  MatchBetsListedAction | MatchAllBetsLoadedAction |
+   CompletedMatchBetsListedAction;

@@ -16,19 +16,21 @@
               [carouselClasses]="['owl-theme', 'row', 'sliding']">
               <div class="item items" *ngFor="let match of allMatches;let i = index">
                   <div class="card card-stats">
-                      <div class="card-header card-header-info card-header-icon">
-                          <div class="card-icon">
+                      <div class="card-header card-header-info">
+                          <!-- <div class="card-icon"> -->
                               <!-- <i class="material-icons">content_copy</i>
                               <i class="material-icons">content_copy</i> -->
                               <!-- <div class="row">
                                 <img src={{match.homeTeam.logouUrl()}} class="logo  col-6"/>
                                 <img src={{match.awayTeam.logouUrl()}} class="logo col-6"/>
                               </div> -->
-                              <h5 >Match #{{match.matchNumber}}
-                              <small>{{match.date | date: 'dd/MM'}}</small>
-                              <small>-{{match.date | date: 'HH:mm'}}</small>
-                              </h5>
-                          </div>
+                              <div class="row justify-content-md-center h-100">
+                                <h5 >Match #{{match.matchNumber}}
+                                    <small>{{match.date | date: 'EEE dd/MM HH:mm'}}</small>
+                                    </h5>
+                              </div>
+                              
+                          <!-- </div> -->
 
                           <!-- <p class="card-category">Match #{{i}}</p>
                           <h5 class="card-title">ARG - GER
