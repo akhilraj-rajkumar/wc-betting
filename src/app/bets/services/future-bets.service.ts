@@ -74,7 +74,9 @@ export class FutureBetsService extends BaseService {
               matchObj.resultTeamId = element['result_team_id'];
               matchObj.resultLost = element['points_lost'];
             }
-            completedBetMatchList.push(matchObj);
+            if (matchObj.totalBets() > 0) {
+              completedBetMatchList.push(matchObj);
+            }
           });
           completedBetMatchList.sort((a, b) => a.id > b.id ? 1 : 0);
           this.store.dispatch(new CompletedMatchBetsListedAction(completedBetMatchList));
