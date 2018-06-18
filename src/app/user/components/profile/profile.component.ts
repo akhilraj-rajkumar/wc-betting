@@ -51,6 +51,10 @@ export class ProfileComponent implements OnInit {
       const points = this.userProgress.map( o => {
         return o.netPoint;
       });
+      let min = Math.min(...points);
+      let max = Math.max(...points);
+      min = min - 1;
+      max = max + 1;
       const dataDailySalesChart: any = {
         labels: matchIds,
         series: [
@@ -63,7 +67,9 @@ export class ProfileComponent implements OnInit {
       const optionsDailySalesChart: any = {
         lineSmooth: Chartist.Interpolation.cardinal({
             tension: 0
-        }), // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+        }),
+        low: min,
+        high: max, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
         chartPadding: { top: 0, right: 0, bottom: 0, left: 0},
     };
 
