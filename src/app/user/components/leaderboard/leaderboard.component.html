@@ -14,7 +14,7 @@
                                     <th class="text-center"># Rank</th>
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Avg. Points</th>
-                                    <th class="text-center" tooltip="Total points gained by user">Total Points</th>
+                                    <th class="text-center" tooltip="Total points gained by user" placement="bottom">Total Points</th>
                                     <!-- <th class="text-center" tooltip="Total profit/loss on match">P/L</th> -->
                                     <th class="text-right"></th>
                                 </thead>
@@ -26,9 +26,9 @@
                                         <td class="text-center">{{leader.totalPoints | number : '1.2-2'}}</td>
                                         <!-- <td class="text-center" tooltip="{{match.getProfiltOrLoseTooltip()}}">{{isNumber(match.getProfiltOrLosePoints()) ? (match.getProfiltOrLosePoints() | number : '1.2-2') : match.getProfiltOrLosePoints()}}</td> -->
                                         <td class="td-actions text-right">
-                                            <button mat-raised-button (click)="openModal(template, match)" type="button" tooltip="View Result" class="btn btn-danger btn-link btn-sm btn-just-icon">
+                                            <!-- <button mat-raised-button (click)="openModal(template, match)" type="button" tooltip="View Result" class="btn btn-danger btn-link btn-sm btn-just-icon">
                                                 <i class="material-icons">visibility</i>
-                                            </button>
+                                            </button> -->
                                         </td>
                                     </tr>
                     
