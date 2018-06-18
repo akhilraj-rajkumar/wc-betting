@@ -13,7 +13,7 @@ export class MatchBetsService extends BaseService {
     const url = 'match/match_details?match_id=' + match.id
     this.getData(url).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         const responseStatus = res['status'];
         if (responseStatus === SUCCESS_STATUS) {
           const data = res['match_details'];

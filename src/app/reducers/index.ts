@@ -23,8 +23,8 @@ export const reducers: ActionReducerMap<IAppState> = {
 
 export function logger(reducer: ActionReducer<IAppState>): ActionReducer<IAppState> {
     return function(state: IAppState, action: any): IAppState {
-      console.log('state', state);
-      console.log('action', action);
+    //   console.log('state', state);
+    //   console.log('action', action);
       return reducer(state, action);
     };
   }

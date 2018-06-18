@@ -22,7 +22,7 @@ export class FutureBetsService extends BaseService {
     const url = 'users/bids';
     this.getData(url).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         const responseStatus = res['status'];
         if (responseStatus === SUCCESS_STATUS) {
           const futureBetMatchList = [];

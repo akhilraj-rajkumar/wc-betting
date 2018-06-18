@@ -71,7 +71,7 @@ export class BaseService {
       const url = 'users/profile';
       this.getData(url).subscribe(
         res => {
-          console.log(res);
+          // console.log(res);
           const responseStatus = res['status'];
           if (responseStatus === SUCCESS_STATUS) {
             const user = res['user'];
