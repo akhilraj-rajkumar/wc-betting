@@ -1,7 +1,7 @@
 table {
     display: block;
     max-height: 200px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .scroll-thead {

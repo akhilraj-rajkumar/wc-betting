@@ -1,12 +1,12 @@
 <table class="table">
     <thead >
-        <th class="text-center">Name</th>
-        <th class="text-center">Bets</th>
+        <th class="text-left text-success">Name</th>
+        <th class="text-right text-success">Bets</th>
     </thead>
     <tbody >
         <tr *ngFor="let user of usersList">
-            <th class="text-center">{{user.bidder}}</th>
-            <th class="text-center">{{user.number_of_bids}}</th>
+            <th class="text-left">{{user.bidder}}</th>
+            <th class="text-right">{{user.number_of_bids}}</th>
         </tr>
     </tbody>
 </table>
