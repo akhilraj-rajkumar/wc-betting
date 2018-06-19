@@ -45,12 +45,14 @@ export class ProfileComponent implements OnInit {
 
   loadProgressChart() {
     if (this.userProgress.length > 0) {
-      const matchIds = this.userProgress.map( o => {
+      let matchIds = this.userProgress.map( o => {
         return o.match;
       });
-      const points = this.userProgress.map( o => {
+      let points = this.userProgress.map( o => {
         return o.netPoint;
       });
+      matchIds = matchIds.reverse()
+      points = points.reverse()
       let min = Math.min(...points);
       let max = Math.max(...points);
       min = min - 1;
