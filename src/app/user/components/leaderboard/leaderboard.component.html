@@ -13,8 +13,8 @@
                                 <thead class="text-danger">
                                     <th class="text-center"># Rank</th>
                                     <th class="text-center">Name</th>
-                                    <th class="text-center">Avg. Points</th>
-                                    <th class="text-center" tooltip="Total points gained by user" placement="bottom">Total Points</th>
+                                    <th class="text-center" tooltip="For 1 point spent, gained x points"  placement="bottom">Gain X</th>
+                                    <th class="text-center" tooltip="Total points gained in bets" placement="bottom">Total Gain</th>
                                     <!-- <th class="text-center" tooltip="Total profit/loss on match">P/L</th> -->
                                     <th class="text-right"></th>
                                 </thead>
@@ -22,7 +22,7 @@
                                     <tr *ngFor="let leader of leaders; let i = index">
                                         <td class="text-center">{{i + 1}}</td>
                                         <td class="text-center">{{leader.name}}</td>
-                                        <td class="text-center">{{leader.avgPoints | number : '1.2-2'}}</td>
+                                        <td class="text-center">{{leader.avgPoints | number : '1.2-2'}}x</td>
                                         <td class="text-center">{{leader.totalPoints | number : '1.2-2'}}</td>
                                         <!-- <td class="text-center" tooltip="{{match.getProfiltOrLoseTooltip()}}">{{isNumber(match.getProfiltOrLosePoints()) ? (match.getProfiltOrLosePoints() | number : '1.2-2') : match.getProfiltOrLosePoints()}}</td> -->
                                         <td class="td-actions text-right">
