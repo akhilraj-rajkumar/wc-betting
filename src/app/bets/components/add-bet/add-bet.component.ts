@@ -26,6 +26,10 @@ export class AddBetComponent implements OnInit, OnDestroy, OnChanges {
   isSubmitted = false;
   public pointsLeft = 0;
 
+  homeBetOdd = 0;
+  awayBetOdd = 0;
+  drawBetOdd = 0;
+
   matchBetsStore: Observable<BetModel>;
   betSuccessStore: Observable<MatchModel>;
   betFailureStore: Observable<ErrorModel>;
@@ -34,6 +38,7 @@ export class AddBetComponent implements OnInit, OnDestroy, OnChanges {
   private subscription: Subscription = new Subscription();
   matchCopy: MatchModel;
   matchBet: BetModel = new BetModel();
+  matchBetOriginal: BetModel = new BetModel();
 
   constructor(
     private store: Store<IAppState>,
@@ -66,7 +71,9 @@ export class AddBetComponent implements OnInit, OnDestroy, OnChanges {
     this.matchBetsStore = this.store.select(getMatchAllBets);
     this.subscription.add(this.matchBetsStore.subscribe(state => {
       if (state) {
-        this.matchBet = state;
+        this.matchBetOriginal = state;
+        this.matchBet = Object.assign(new BetModel(), this.matchBetOriginal);
+        this.updateBetOdds();
       }
     }));
   }
@@ -86,24 +93,67 @@ export class AddBetComponent implements OnInit, OnDestroy, OnChanges {
     this.subscription.unsubscribe();
   }
 
+  updateBetOdds() {
+
+    if (this.match !== undefined && this.matchCopy !== undefined) {
+      const total = this.matchBet.totalBets();
+      if (this.matchBet.homeBets > 0) {
+        const homeBetShare = total / this.matchBet.homeBets;
+        this.homeBetOdd = homeBetShare * this.matchCopy.homeTeamBets;
+      } else {
+        this.homeBetOdd = 0;
+      }
+  
+      if (this.matchBet.awayBets > 0) {
+        const awayBetShare = total / this.matchBet.awayBets;
+        this.awayBetOdd = awayBetShare * this.matchCopy.awayTemaBets;
+      } else {
+        this.awayBetOdd = 0;
+      }
+      
+      if (this.matchBet.drawBets > 0) {
+        const drawBetShare = total / this.matchBet.drawBets;
+        this.drawBetOdd = drawBetShare * this.matchCopy.drawBets;
+      } else {
+        this.drawBetOdd = 0;
+      }
+    }
+  }
+
   updateUserPoints() {
     const diff = this.matchCopy.totalBets() - this.match.totalBets();
     this.pointsLeft = this.user.points - diff;
   }
 
+  updateTotalPoints() {
+    const homeBetDiff = this.matchCopy.homeTeamBets - this.match.homeTeamBets;
+    const awayBetDiff = this.matchCopy.awayTemaBets - this.match.awayTemaBets;
+    const drawBetDiff = this.matchCopy.drawBets - this.match.drawBets;
+
+    this.matchBet.homeBets = this.matchBetOriginal.homeBets + homeBetDiff;
+    this.matchBet.awayBets = this.matchBetOriginal.awayBets + awayBetDiff;
+    this.matchBet.drawBets = this.matchBetOriginal.drawBets + drawBetDiff;
+  }
+
   homeTeamBetCountUpdated(count) {
     this.matchCopy.homeTeamBets = count;
     this.updateUserPoints();
+    this.updateTotalPoints();
+    this.updateBetOdds();
   }
 
   awayTeamBetCountUpdated(count) {
     this.matchCopy.awayTemaBets = count;
     this.updateUserPoints();
+    this.updateTotalPoints();
+    this.updateBetOdds();
   }
 
   drawBetCountUpdated(count) {
-    this.matchCopy.drawBets =count;
+    this.matchCopy.drawBets = count;
     this.updateUserPoints();
+    this.updateTotalPoints();
+    this.updateBetOdds();
   }
 
   hideModal() {

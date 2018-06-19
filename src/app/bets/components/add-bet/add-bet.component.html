@@ -23,22 +23,26 @@
             <th class="text-left">Bet Option</th>
             <th class="text-center">Total Bet(s)</th>
             <th class="text-center">Add Your Bet(s)</th>
+            <th class="text-center" tooltip="How much point you will win on your bet">Bet Odd</th>
         </thead>
         <tbody>
             <tr >
                 <td class="text-left">{{match.homeTeam.shortName}} WINS</td>
                 <td class="text-center">{{matchBet.homeBets}}</td>
                 <td class="text-center"><app-add-control [count]="match.homeTeamBets" [maxCount]="pointsLeft" (valueChange)="homeTeamBetCountUpdated($event)"></app-add-control></td>
+                <td class="text-center">{{homeBetOdd | number : '1.2-2'}}</td>
             </tr>
             <tr >
               <td class="text-left">{{match.awayTeam.shortName}} WINS</td>
               <td class="text-center">{{matchBet.awayBets}}</td>
               <td class="text-center"><app-add-control [count]="match.awayTemaBets" [maxCount]="pointsLeft" (valueChange)="awayTeamBetCountUpdated($event)"></app-add-control></td>
+              <td class="text-center">{{awayBetOdd | number : '1.2-2'}}</td>
           </tr>
           <tr >
             <td class="text-left">MATCH DRAWS</td>
             <td class="text-center">{{matchBet.drawBets}}</td>
             <td class="text-center"><app-add-control [count]="match.drawBets" [maxCount]="pointsLeft" (valueChange)="drawBetCountUpdated($event)"></app-add-control></td>
+            <td class="text-center">{{drawBetOdd | number : '1.2-2'}}</td>
         </tr>
             
         </tbody>
