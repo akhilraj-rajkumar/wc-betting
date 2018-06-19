@@ -29,7 +29,15 @@
       <tbody>
           <tr >
               <td class="text-center">{{match.homeTeam.shortName}} WINS</td>
-              <td class="text-center">{{matchBet.homeBets}}</td>
+              <td class="text-center">
+                <div class="pgRow row  justify-content-md-center h-100 ">
+                    <span class="textvalignmiddle">{{matchBet.homeBets}}</span>
+                    <button *ngIf="matchBet.actualHomeBetUsers().length > 0" [tooltip]="homeBetUsersPopup" triggers="focus" placement="right" mat-raised-button type="button" tooltip="Bet won" class="btn btn-success btn-link btn-sm btn-just-icon">
+                        <i class="material-icons">group</i>
+                    </button>
+                </div>
+                 
+              </td>
               <td class="text-center">{{match.homeTeamBets}}</td>
               <td class="td-actions text-center">
                 <button *ngIf="match.resultTeamId == match.homeTeam.id" mat-raised-button type="button" tooltip="Bet won" class="btn btn-success btn-link btn-sm btn-just-icon">
@@ -42,7 +50,15 @@
           </tr>
           <tr >
             <td class="text-center">{{match.awayTeam.shortName}} WINS</td>
-            <td class="text-center">{{matchBet.awayBets}}</td>
+            <td class="text-center">
+              <!-- {{matchBet.awayBets}} -->
+              <div class="pgRow row  justify-content-md-center h-100 ">
+                  <span class="textvalignmiddle">{{matchBet.awayBets}}</span>
+                  <button *ngIf="matchBet.actualAwayBetUsers().length > 0"  [tooltip]="awayBetUsersPopup" triggers="focus" placement="right" mat-raised-button type="button" tooltip="Bet won" class="btn btn-success btn-link btn-sm btn-just-icon">
+                      <i class="material-icons">group</i>
+                  </button>
+              </div>
+            </td>
             <td class="text-center">{{match.awayTemaBets}}</td>
             <td class="td-actions text-center">
               <button *ngIf="match.resultTeamId == match.awayTeam.id" mat-raised-button type="button" tooltip="Bet won" class="btn btn-success btn-link btn-sm btn-just-icon">
@@ -55,7 +71,15 @@
         </tr>
         <tr >
           <td class="text-center">MATCH DRAWS</td>
-          <td class="text-center">{{matchBet.drawBets}}</td>
+          <td class="text-center">
+            <!-- {{matchBet.drawBets}} -->
+            <div class="pgRow row  justify-content-md-center h-100 ">
+                <span class="textvalignmiddle">{{matchBet.drawBets}}</span>
+                <button *ngIf="matchBet.actualDrawBetUsers().length > 0"  [tooltip]="drawBetUsersPopup" triggers="focus" placement="right" mat-raised-button type="button" tooltip="Bet won" class="btn btn-success btn-link btn-sm btn-just-icon">
+                    <i class="material-icons">group</i>
+                </button>
+            </div>
+          </td>
           <td class="text-center">{{match.drawBets}}</td>
           <td class="td-actions text-center">
             <button *ngIf="match.resultTeamId == 2" mat-raised-button type="button" tooltip="Bet won" class="btn btn-success btn-link btn-sm btn-just-icon">
@@ -95,3 +119,13 @@
       <button mat-raised-button type="submit" class="btn btn-success pull-right" (click)="hideModal()">Dismiss</button>
   </div>
 </div>
+
+<ng-template #homeBetUsersPopup>
+    <app-betters-view [usersList]="matchBet.actualHomeBetUsers()"></app-betters-view>
+</ng-template>
+<ng-template #awayBetUsersPopup>
+    <app-betters-view [usersList]="matchBet.actualAwayBetUsers()"></app-betters-view>
+</ng-template>
+<ng-template #drawBetUsersPopup>
+    <app-betters-view [usersList]="matchBet.actualDrawBetUsers()"></app-betters-view>
+</ng-template>

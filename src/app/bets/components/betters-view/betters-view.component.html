@@ -1,0 +1,15 @@
+<table class="table">
+    <thead >
+        <th class="text-center">Name</th>
+        <th class="text-center">Bets</th>
+    </thead>
+    <tbody >
+        <tr *ngFor="let user of usersList">
+            <th class="text-center">{{user.bidder}}</th>
+            <th class="text-center">{{user.number_of_bids}}</th>
+        </tr>
+    </tbody>
+</table>
+<div class="row justify-content-md-center h-100">
+    <button mat-raised-button type="submit" class="btn btn-success pull-right" (click)="hide()">Dismiss</button>
+</div>

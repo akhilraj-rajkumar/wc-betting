@@ -1,0 +1,15 @@
+.textvalignmiddle > span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1em; /*set line height back to normal*/
+}
+
+.textvalignmiddle {
+    line-height: 100%;
+    height: 100%;
+}
+
+.pgRow {
+    display: flex;  /* make the row a flex container */
+    align-items: center; /* vertically center each flex item in the container */
+  }

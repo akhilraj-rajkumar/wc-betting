@@ -18,6 +18,7 @@ import { CoreModule } from '@app/core';
 import { ViewBetComponent } from './components/view-bet/view-bet.component';
 import { ViewBetOptionComponent } from './components/view-bet-option/view-bet-option.component';
 import { AddControlComponent } from './components/add-control/add-control.component';
+import { BettersViewComponent } from './components/betters-view/betters-view.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import { AddControlComponent } from './components/add-control/add-control.compon
     TooltipModule.forRoot()
   ],
   providers: [AddBetService, FutureBetsService, MatchBetsService],
-  declarations: [BetResultsComponent, FutureBetsComponent, AddBetComponent, BetOptionComponent, ViewBetComponent, ViewBetOptionComponent, AddControlComponent],
+  declarations: [BetResultsComponent, FutureBetsComponent, AddBetComponent, BetOptionComponent, ViewBetComponent, ViewBetOptionComponent, AddControlComponent, BettersViewComponent],
   exports: [BetResultsComponent, FutureBetsComponent, AddBetComponent, BetOptionComponent]
 })
 export class BetsModule { }
